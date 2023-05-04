@@ -188,6 +188,33 @@
     <Compile Include="Utility\GlobalQuesFile.cs" />
     <Compile Include="Utility\User.cs" />
     <Compile Include="Utility\UserProgress.cs" />
+    <Compile Include="View\Dashboard.xaml.cs">
+      <DependentUpon>Dashboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Exam.xaml.cs">
+      <DependentUpon>Exam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Exams\ExamQ.xaml.cs">
+      <DependentUpon>ExamQ.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Exams\Option.cs" />
+    <Compile Include="View\Exams\PlacementTest.xaml.cs">
+      <DependentUpon>PlacementTest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Exams\Question.cs" />
+    <Compile Include="View\Lesson.xaml.cs">
+      <DependentUpon>Lesson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Lessons\Lecture.cs" />
+    <Compile Include="View\Lessons\LessonPage.xaml.cs">
+      <DependentUpon>LessonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Profile.xaml.cs">
+      <DependentUpon>Profile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProfileCom\CompleteProfile.xaml.cs">
+      <DependentUpon>CompleteProfile.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Login.xaml.cs">
@@ -221,8 +248,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="View\Exams\" />
-    <Folder Include="View\Lessons\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\35_instagram_default.png">
@@ -288,6 +313,38 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Registration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Exam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Exams\ExamQ.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Exams\PlacementTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lesson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Lessons\LessonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProfileCom\CompleteProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

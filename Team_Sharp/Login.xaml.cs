@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace Team_Sharp
 {
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
     public partial class Login : Window
     {
         public Login()
