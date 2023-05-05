@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Team_Sharp.Utility
 {
-    internal class UserProgress
+    public static class UserProgress
     {
+        public static int _exp { get; set; }
+
+        public static int _userProgressLevel { get; set; }
+        public static string _userProgressProficiency { get; set; }
     }
 }

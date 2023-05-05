@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Team_Sharp.Utility
 {
-    internal class Activity
+    public class Activity
     {
+        public DateTime Date { get; set; }
+        public string Name { get; set; }
+
     }
 }

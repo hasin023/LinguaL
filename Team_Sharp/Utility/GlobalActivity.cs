@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Team_Sharp.Utility
 {
-    internal class GlobalActivity
+    public static class GlobalActivity
     {
+        public static string _activity { get; set; }
     }
 }
