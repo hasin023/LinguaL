@@ -1,12 +1,128 @@
 ﻿<Window x:Class="Team_Sharp.Registration"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:Team_Sharp"
-        mc:Ignorable="d"
-        Title="Registration" Height="450" Width="800">
+        Title="Registration"
+        Icon="Assets/Appicon.ico"
+        mc:Ignorable="d" Height="650" Width="1000" Background="Transparent"
+        AllowsTransparency="True" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Left Section-->
+        <Border Background="#E24747" Padding="30" CornerRadius="25 0 0 25">
+            <StackPanel>
+                <Image x:Name="genderImg" Source="Assets/background.png" Height="160" Width="160" Margin="0 100 0 20"/>
+
+                <TextBlock Text="Let's Get you Set Up" TextAlignment="Center" FontWeight="SemiBold" FontSize="28" Foreground="#363636"/>
+                <TextBlock TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Foreground="#363636" Margin="0 10 0 20" Text="It will only take a few minutes"/>
+
+                <Button Style="{StaticResource buttonBlack}" Click="RegButton_Click">
+                    <fa:ImageAwesome Icon="AngleRight" Width="25" Height="25" Foreground="#E24747" Margin="3 0 0 0"/>
+                </Button>
+
+                <TextBlock Margin="55 90 0 0">
+                    <Run BaselineAlignment="Center">Already have an account?</Run>
+                    <Hyperlink Foreground="White" FontWeight="Bold" NavigateUri="https://www.google.com/"
+                     RequestNavigate="LoginLink_Click" FontSize="13">
+                        Login
+                    </Hyperlink>
+                </TextBlock>
+
+            </StackPanel>
+
+        </Border>
+
+        <!--Input Section-->
+        <Border Grid.Column="1" Padding="20" Background="White" CornerRadius="0 25 25 0" MouseDown="Border_MouseDown">
+            <Grid>
+                <Image Source="Assets/close.png" Width="25" Margin="0 4 5 0" Style="{StaticResource iconApp}" MouseLeftButtonDown="Exit_Click"/>
+                <Image Source="Assets/minimize.png" Width="20" Margin="0 7 40 0" Style="{StaticResource iconApp}" MouseLeftButtonDown="Minimize_Click"/>
+
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Email" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="1" Text="Username" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="2" Text="Gender" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="3" Margin="0 15 0 0" Text="Name" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="4" Margin="0 15 0 0" Text="Date of Birth" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="5" Margin="0 15 0 0" Text="Password" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="6" Margin="0 15 0 0" Text="Confirm Password" Style="{StaticResource text}"/>
+
+                    <TextBox PreviewKeyDown="emailEnterKey" Grid.Column="1" Grid.Row="0" Height="30" x:Name="txtEmail" Width="220" FontSize="13" Margin="0 0 0 0"
+                         materialDesign:HintAssist.Hint="Enter Email" BorderThickness="0" materialDesign:HintAssist.FloatingScale="-.2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledTextBox}"/>
+
+                    <TextBox PreviewKeyDown="userEnterKey" Grid.Column="1" Grid.Row="1" Height="30" x:Name="txtUsername" Width="220" FontSize="13" Margin="0 20 0 20"
+                         materialDesign:HintAssist.Hint="Username" BorderThickness="0" materialDesign:HintAssist.FloatingScale="-.2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledTextBox}"/>
+
+                    <TextBox PreviewKeyDown="nameEnterKey" Grid.Column="1" Grid.Row="3" Height="30" x:Name="txtName" Width="220" FontSize="13" Margin="0 20 0 0"
+                         materialDesign:HintAssist.Hint="Enter Name" BorderThickness="0" materialDesign:HintAssist.FloatingScale="-.2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledTextBox}"/>
+
+
+
+                    <TextBox PreviewKeyDown="dobEnterKey" Grid.Column="1" Grid.Row="4" Height="30" x:Name="txtDOB" Width="220" FontSize="13" Margin="0 20 0 0"
+                         materialDesign:HintAssist.Hint="DD-MM-YYYY" BorderThickness="0" materialDesign:HintAssist.FloatingScale="-.2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledTextBox}"/>
+
+
+                    <PasswordBox PreviewKeyDown="passEnterKey" Grid.Column="1" Grid.Row="5" Height="30" Width="220" FontSize="13" materialDesign:HintAssist.Hint="Password"
+                                 materialDesign:HintAssist.FloatingScale="-.2" Margin="0 20 0 0" BorderThickness="0" x:Name="passBox"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"/>
+
+                    <PasswordBox Grid.Column="1" Grid.Row="6" Height="30" Width="220" FontSize="13" materialDesign:HintAssist.Hint="Password"
+                                 materialDesign:HintAssist.FloatingScale="-.2" Margin="0 20 0 0" BorderThickness="0" x:Name="conPassBox"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"/>
+
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="0 0 0 0">
+                        <RadioButton x:Name="dudeButton" Margin="0 0 0 0" Style="{StaticResource MaterialDesignDarkRadioButton}" Click="dudeClick">
+                            <Run Text="Male" FontWeight="SemiBold"/>
+                        </RadioButton>
+                        <RadioButton x:Name="girlButton" Margin="20 0 0 0" Style="{StaticResource MaterialDesignDarkRadioButton}" Click="girlClick">
+                            <Run Text="Female" FontWeight="SemiBold"/>
+                        </RadioButton>
+                        <RadioButton x:Name="otherGenButton" Margin="20 0 0 0" Style="{StaticResource MaterialDesignDarkRadioButton}" Click="otherClick">
+                            <Run Text="Other" FontWeight="SemiBold"/>
+                        </RadioButton>
+                    </StackPanel>
+
+                    <Grid Grid.Column="1" Grid.Row="7" Margin="0,50,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Style="{StaticResource buttonMain}" Margin="0 0 10 0" Content="Reset" Click="reset_Click"/>
+
+                        <Button Grid.Column="1" Style="{StaticResource buttonMainGreen}" Margin="10 0 0 0"  Content="Save" Click="save_Click"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

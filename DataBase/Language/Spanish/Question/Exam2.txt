@@ -1,0 +1,24 @@
+1.Is this your name?s
+1a.Jenn
+1b.Olsen
+1c.Jimmy
+
+2.Are u a girl?s
+2a.20
+2b.14
+2c.28
+
+3.What you eating?s
+3a.Mango
+3b.Orange
+3c.Grape
+
+4.What is your least favourite color?s
+4a.Red
+4b.Blue
+4c.Yellow
+
+5.What your least favourite movie?s
+5a.X-Men
+5b.Avengers
+5c.Big Hero 6

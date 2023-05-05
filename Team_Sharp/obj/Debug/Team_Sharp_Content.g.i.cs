@@ -8,21 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/35_instagram_default.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/60_facebook_default.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/60_facebook_hover.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/60_google_default.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/60_google_hover.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/60_instagram_hover.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/appstartimg.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/background.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/close.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/dudeicon.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/girlicon.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/logicon.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/minimize.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/othergenicon.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/studying.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/usericon.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/appicon.ico")]
 
 

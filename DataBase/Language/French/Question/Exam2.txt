@@ -1,0 +1,20 @@
+Q.Translate "Je suis un garçon" in English
+A.I am a boy
+A.He is a boy
+A.I am a man
+Q.Translate "C'est un cheval" in English
+A.It's a horse
+A.This is a horse
+A.Is this a horse
+Q.Translate "Tu es Alice?" in English
+A.Are you Alice?
+A.Is she Alice?
+A.Who is Alice?
+Q.Translate "You are eating an orange" in French
+A.Tu manges une orange
+A.Tu es orange manges
+A.C'est un manges orange
+Q.Translate "A girl is eating a croissant" in French
+A.Une fille mange un croissant.
+A.Un croissant mange une fille
+A.Tu un mange croissant une femme

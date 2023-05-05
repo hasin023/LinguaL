@@ -5,8 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team_Sharp"
         mc:Ignorable="d"
-        Title="LanguageSelection" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Menu" Height="300" Width="500" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown">
+        <Grid>
+            <TextBlock Text="What language do you want to learn?" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,99,0,0"/>
+            <ComboBox x:Name="languageComboBox" Margin="100,150,100,0" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Height="35" Width="300" VerticalAlignment="Top" FontWeight="SemiBold">
+                <ComboBoxItem Content="French" FontSize="13"/>
+                <ComboBoxItem Content="Spanish" FontSize="13"/>
+                <ComboBoxItem Content="Korean" FontSize="13"/>
+            </ComboBox>
+            <Button Click="startClick" Content="Start" FontSize="17" FontWeight="SemiBold" Margin="300,225,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Style="{StaticResource MaterialDesignFlatMidBgButton}"/>
+            <Button Click="exitClick" Content="Exit" FontSize="17" FontWeight="SemiBold" Margin="100,225,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Style="{StaticResource MaterialDesignFlatButton}"/>
+        </Grid>
+    </Border>
 </Window>

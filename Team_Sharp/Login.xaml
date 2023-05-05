@@ -3,10 +3,57 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Team_Sharp"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Icon="Assets/AppIcon.ico"
+        Title="Login" Height="760" Width="450"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{x:Null}"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+            <StackPanel>
+                <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+                    <StackPanel>
+
+                        <Button ToolTip="Having trouble logging in?" Margin="0 8 0 0" Content="Help"/>
+                        <Button x:Name="btn_exit" Content="Exit Application" ToolTip="Close Application" Click="exitApp"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+
+                <Image Source="Assets/LogIcon.png" Margin="0 60 0 5" Height="100"/>
+                <TextBlock Margin="0 25 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Welcome Back!"/>
+                <TextBlock FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Log into your existing account"/>
+
+                <TextBox PreviewKeyDown="txtEnterKey" Margin="0 50 0 0" x:Name="txtLUsername" Width="300" FontSize="18"
+                         materialDesign:HintAssist.Hint="Enter Username" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledTextBox}"/>
+
+                <PasswordBox PreviewKeyDown="passEnterKey" Margin="0 20 0 0" x:Name="txtLPassword" Width="300" FontSize="18" 
+                              materialDesign:HintAssist.Hint="Enter Password" BorderThickness="2" 
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignFilledRevealPasswordBox}"/>
+
+                <Button Margin="0 50 0 0" x:Name="loginBtn" Style="{StaticResource MaterialDesignFlatMidBgButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="LOG IN" Click="loginClick"/>
+
+                <CheckBox x:Name="checkBox" Margin="15 30 0 15" Style="{StaticResource MaterialDesignDarkCheckBox}">
+                    <TextBlock Margin="0 0 0 3" Style="{StaticResource MaterialDesignBody2TextBlock}">
+                    <Run Text="Remember Me"/>
+                    </TextBlock>
+                </CheckBox>
+
+                <TextBlock HorizontalAlignment="Center" FontSize="12" FontWeight="SemiBold">
+                    <Run BaselineAlignment="Center">Don't have an account?</Run>
+                    <Hyperlink Foreground="Red" FontWeight="Bold" NavigateUri="https://www.google.com/"
+                     RequestNavigate="RegisterLink_Click" FontSize="13">
+                        Register
+                    </Hyperlink>
+                </TextBlock>
+
+            </StackPanel>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
 </Window>

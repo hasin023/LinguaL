@@ -1,0 +1,24 @@
+1.What is your name?k
+1a.Andrew
+1b.Olsen
+1c.Jimmy
+
+2.How old are you?k
+2a.20
+2b.14
+2c.28
+
+3.What is your tree?k
+3a.Mango
+3b.Banana
+3c.Grape
+
+4.What is your favourite color?k
+4a.Red
+4b.Blue
+4c.Yellow
+
+5.What your favourite movie?k
+5a.X-Men
+5b.Avengers
+5c.Big Hero 6
