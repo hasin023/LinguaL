@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Team_Sharp.Utility
 {
-    internal class GlobalQuesFile
+    public static class GlobalQuesFile
     {
+        public static string _question { get; set; }
+        public static string _placementQuestion { get; set; } = "PlacementTest";
     }
 }
