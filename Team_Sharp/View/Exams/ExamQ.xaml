@@ -2,11 +2,63 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team_Sharp.View.Exams"
-        mc:Ignorable="d"
-        Title="ExamQ" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        mc:Ignorable="d" Background="Transparent"
+        Title="Exam" Height="500" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Border Background="#eff2f7">
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="30 0 0 20">
+                    <TextBlock x:Name="q1Text" Text="1st Question" FontSize="25" FontWeight="SemiBold"/>
+                    <RadioButton x:Name="q1op1" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q1op2" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q1op3" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1" Margin="30 0 0 20">
+                    <TextBlock x:Name="q2Text" Text="2nd Question" FontSize="25" FontWeight="SemiBold"/>
+                    <RadioButton x:Name="q2op1" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q2op2" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q2op3" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Margin="30 0 0 20">
+                    <TextBlock x:Name="q3Text" Text="3rd Question" FontSize="25" FontWeight="SemiBold"/>
+                    <RadioButton x:Name="q3op1" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q3op2" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q3op3" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Margin="30 0 0 20">
+                    <TextBlock x:Name="q4Text" Text="4th Question" FontSize="25" FontWeight="SemiBold"/>
+                    <RadioButton x:Name="q4op1" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q4op2" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q4op3" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Margin="30 0 0 20">
+                    <TextBlock x:Name="q5Text" Text="5th Question" FontSize="25" FontWeight="SemiBold"/>
+                    <RadioButton x:Name="q5op1" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q5op2" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                    <RadioButton x:Name="q5op3" FontSize="16" Style="{StaticResource MaterialDesignDarkRadioButton}"/>
+                </StackPanel>
+
+                <Button x:Name="SubmitButton" Click="submitClick" materialDesign:ButtonAssist.CornerRadius="10" Grid.Row="4" Margin="0 120 25 20" VerticalAlignment="Bottom" HorizontalAlignment="Right"  Style="{StaticResource MaterialDesignFlatAccentBgButton}" Width="90" Content="Submit" FontWeight="SemiBold" FontFamily="Arial"/>
+                <Button x:Name="ShowResetButton" ToolTip="You lose 5 points for each viewing" Click="showResetClick" materialDesign:ButtonAssist.CornerRadius="10" Grid.Row="4" Margin="0 120 130 20" VerticalAlignment="Bottom" HorizontalAlignment="Right"  Style="{StaticResource MaterialDesignFlatMidBgButton}" Width="90" Content="Show" FontWeight="SemiBold" FontFamily="Arial"/>
+
+            </Grid>
+        </ScrollViewer>
+    </Border>
 </Window>
