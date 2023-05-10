@@ -1,12 +1,48 @@
-﻿<Window x:Class="Team_Sharp.View.Exam"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Team_Sharp.View"
-        mc:Ignorable="d"
-        Title="Exam" Height="450" Width="800">
-    <Grid>
-        
+﻿<UserControl x:Class="Team_Sharp.View.Exam"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Team_Sharp.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="#eff2f7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Margin="10 0 0 40" Text="Beginner" FontWeight="SemiBold" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+            <Button x:Name="Exam1" Click="exam1Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 1" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam2" Click="exam2Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 2" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam3" Click="exam3Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 3" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam4" Click="exam4Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 4" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam5" Click="exam5Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 5" materialDesign:ButtonAssist.CornerRadius="15"/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock Margin="10 0 0 40" Text="Intermediate" FontWeight="SemiBold" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+            <Button x:Name="Exam6" Click="exam6Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 6" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam7" Click="exam7Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 7" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam8" Click="exam8Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 8" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam9" Click="exam9Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 9" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam10" Click="exam10Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 10" materialDesign:ButtonAssist.CornerRadius="15"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Column="2" VerticalAlignment="Center">
+            <TextBlock Margin="10 0 0 40" Text="Advanced" FontWeight="SemiBold" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+            <Button x:Name="Exam11" Click="exam11Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 11" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam12" Click="exam12Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 12" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam13" Click="exam13Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 13" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam14" Click="exam14Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 14" materialDesign:ButtonAssist.CornerRadius="15"/>
+            <Button x:Name="Exam15" Click="exam15Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Exam 15" materialDesign:ButtonAssist.CornerRadius="15"/>
+        </StackPanel>
+
     </Grid>
-</Window>
+
+</UserControl>
