@@ -1,27 +1,140 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Team_Sharp.View;
+using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
+using System.IO;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Team_Sharp.Utility;
+using Team_Sharp.View.DashBoard;
 
 namespace Team_Sharp
 {
-    /// <summary>
-    /// Interaction logic for Menu.xaml
-    /// </summary>
     public partial class Menu : Window
     {
         public Menu()
         {
             InitializeComponent();
+
+            OnStartUP();
+            UserNameText.Text = Global._name;
+        }
+
+
+        public void OnStartUP()
+        {
+            string progress = $@"../../../DataBase/Language/{Global._language}/Progress/{Global._userName}.txt";
+
+            if (!File.Exists(progress))
+            {
+                MessageBox.Show("No records found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string[] proggLines = File.ReadAllLines(progress);
+
+            string exp = null;
+            string level = null;
+            string proficiency = null;
+
+            foreach (string uL in proggLines)
+            {
+                if (uL.StartsWith("EXP:"))
+                {
+                    exp = uL.Remove(0, 4);
+                }
+                else if (uL.StartsWith("Level:"))
+                {
+                    level = uL.Remove(0, 6);
+                }
+                else if (uL.StartsWith("Proficiency:"))
+                {
+                    proficiency = uL.Remove(0, 12);
+                }
+
+            }
+
+            UserProgress._exp = int.Parse(exp);
+            UserProgress._userProgressLevel = int.Parse(level);
+            UserProgress._userProgressProficiency = proficiency;
+
+            userBlock.Text = Global._userName;
+
+            langBlock.Text = Global._language;
+
+            if (Global._gender == "Male")
+            {
+                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Login_Reg_Page/Assets/dudeIcon.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (Global._gender == "Female")
+            {
+                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Login_Reg_Page/Assets/girlIcon.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (Global._gender == "Other")
+            {
+                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Login_Reg_Page/Assets/otherGenIcon.png", UriKind.RelativeOrAbsolute));
+            }
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private bool isMaximized = false;
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if (isMaximized)
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.Height = 720;
+                    this.Width = 1080;
+
+                    isMaximized = false;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Maximized;
+
+                    isMaximized = true;
+                }
+            }
+
+        }
+
+        private void dashboardClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Dashboard();
+        }
+
+        private void lessonClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Lesson();
+        }
+
+        private void examClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Exam();
+        }
+
+        private void profileClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Profile();
+        }
+
+        private void exitApplication(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void logoutClick(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            new Login().Show();
         }
     }
 }
