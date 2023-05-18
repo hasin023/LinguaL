@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Team_Sharp.View.Exams
 {
-    internal class Option
+    public class Option
     {
+        public string Text { get; set; }
+        public bool IsCorrect { get; set; }
     }
 }
