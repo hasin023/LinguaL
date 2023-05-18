@@ -5,7 +5,6 @@ using System.Windows.Input;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Team_Sharp.Utility;
-using Team_Sharp.View.DashBoard;
 
 namespace Team_Sharp
 {
