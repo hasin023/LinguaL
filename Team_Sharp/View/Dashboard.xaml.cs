@@ -6,7 +6,7 @@ using System.IO;
 using System.Windows.Controls;
 using System.Globalization;
 
-namespace Team_Sharp.View.DashBoard
+namespace Team_Sharp.View
 {
     public partial class Dashboard : UserControl
     {

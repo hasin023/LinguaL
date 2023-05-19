@@ -119,9 +119,6 @@
     <Compile Include="View\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ProfileCom\CompleteProfile.xaml.cs">
-      <DependentUpon>CompleteProfile.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Login.xaml.cs">
@@ -248,10 +245,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Profile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ProfileCom\CompleteProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
