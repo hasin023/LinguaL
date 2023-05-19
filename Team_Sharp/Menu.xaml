@@ -78,13 +78,6 @@
                             </StackPanel>
                         </RadioButton>
 
-                        <RadioButton Style="{StaticResource menuRadioButton}" Checked="profileClick">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="AccountBox" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Profile"/>
-                            </StackPanel>
-                        </RadioButton>
-
                     </StackPanel>
                     <Button Click="exitApplication" DockPanel.Dock="Bottom" Margin="15 0 15 20"  Style="{StaticResource menuButton}" VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal">

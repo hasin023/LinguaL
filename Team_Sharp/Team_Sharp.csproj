@@ -116,9 +116,6 @@
     <Compile Include="View\Lessons\LessonPage.xaml.cs">
       <DependentUpon>LessonPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Profile.xaml.cs">
-      <DependentUpon>Profile.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Login.xaml.cs">
@@ -241,10 +238,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Lessons\LessonPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Profile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

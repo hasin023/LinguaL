@@ -62,15 +62,15 @@ namespace Team_Sharp
 
             if (Global._gender == "Male")
             {
-                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Login_Reg_Page/Assets/dudeIcon.png", UriKind.RelativeOrAbsolute));
+                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Team_Sharp/Assets/dudeIcon.png", UriKind.RelativeOrAbsolute));
             }
             else if (Global._gender == "Female")
             {
-                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Login_Reg_Page/Assets/girlIcon.png", UriKind.RelativeOrAbsolute));
+                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Team_Sharp/Assets/girlIcon.png", UriKind.RelativeOrAbsolute));
             }
             else if (Global._gender == "Other")
             {
-                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Login_Reg_Page/Assets/otherGenIcon.png", UriKind.RelativeOrAbsolute));
+                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Team_Sharp/Assets/otherGenIcon.png", UriKind.RelativeOrAbsolute));
             }
         }
 
@@ -118,11 +118,6 @@ namespace Team_Sharp
         private void examClick(object sender, RoutedEventArgs e)
         {
             menuCon.Content = new Exam();
-        }
-
-        private void profileClick(object sender, RoutedEventArgs e)
-        {
-            menuCon.Content = new Profile();
         }
 
         private void exitApplication(object sender, RoutedEventArgs e)
