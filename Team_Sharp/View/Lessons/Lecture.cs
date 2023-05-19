@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Team_Sharp.View.Lessons
 {
-    internal class Lecture
+    public class Lecture
     {
+        public string French { get; set; }
+        public string English { get; set; }
     }
 }
