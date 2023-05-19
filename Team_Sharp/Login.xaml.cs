@@ -105,8 +105,8 @@ namespace Team_Sharp
         {
             if (checkBox.IsChecked == true)
             {
-                Login_Reg_Page.Properties.Settings.Default.Username = txtLUsername.Text;
-                Login_Reg_Page.Properties.Settings.Default.Save();
+                Team_Sharp.Properties.Settings.Default.Username = txtLUsername.Text;
+                Team_Sharp.Properties.Settings.Default.Save();
             }
 
             checkUser(txtLUsername.Text);
