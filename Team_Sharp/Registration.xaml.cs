@@ -63,9 +63,13 @@ namespace Team_Sharp
             {
                 dudeButton.IsChecked = false;
             }
-            else
+            else if(girlButton.IsChecked == true)
             {
                 girlButton.IsChecked = false;
+            }
+            else
+            {
+                otherGenButton.IsChecked = false;
             }
 
             genderImg.Source = new BitmapImage(new Uri("Assets/background.png", UriKind.RelativeOrAbsolute));
