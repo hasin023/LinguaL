@@ -81,7 +81,7 @@
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="QuoteText" HorizontalAlignment="Center" VerticalAlignment="Center" Height="auto" Width="auto" FontSize="20" FontFamily="Bruney" FontWeight="Bold" TextWrapping="Wrap" Text="Quote"/>
+                    <TextBlock x:Name="QuoteText" HorizontalAlignment="Center" VerticalAlignment="Center" Height="auto" Width="auto" FontSize="20" FontFamily="Times New Roman" TextWrapping="Wrap" Text="Quote"/>
 
                     <Image Grid.Column="1" HorizontalAlignment="Right" RenderOptions.BitmapScalingMode="HighQuality" Source="/Assets/Studying.png" Height="70"/>
                 </Grid>
