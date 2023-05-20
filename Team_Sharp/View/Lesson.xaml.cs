@@ -46,6 +46,13 @@ namespace Team_Sharp.View
                     Button currentButton = (Button)FindName(currentLessonButton);
                     Button nextButton = (Button)FindName(nextLessonButton);
 
+                    if(currentLessonButton == "Lesson15" && isCompleted == true)
+                    {
+                        LessonDone.Visibility = Visibility.Visible;
+                        LessonDone2.Visibility = Visibility.Visible;
+                        currentButton.Style = (Style)FindResource("ExamAccentButton");
+                    }
+
                     if (nextButton != null)
                     {
                         if (isCompleted)

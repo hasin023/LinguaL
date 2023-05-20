@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/appicon.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/exam.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/language.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assets/lesson.ico")]
 
 

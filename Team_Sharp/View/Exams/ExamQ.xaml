@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team_Sharp.View.Exams"
         mc:Ignorable="d" Background="Transparent"
+        Icon="/Assets/Exam.ico"
         Title="Exam" Height="500" Width="900"
         WindowStartupLocation="CenterScreen">
     <Border Background="#eff2f7">

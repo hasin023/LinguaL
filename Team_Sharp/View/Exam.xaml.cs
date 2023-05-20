@@ -48,6 +48,14 @@ namespace Team_Sharp.View
                     Button currentButton = (Button)FindName(currentExamButton);
                     Button nextButton = (Button)FindName(nextExamButton);
 
+                    if (currentExamButton == "Exam15" && isCompleted == true)
+                    {
+                        ExamDone.Visibility = Visibility.Visible;
+                        ExamDone2.Visibility = Visibility.Visible;
+                        currentButton.Style = (Style)FindResource("ExamAccentButton");
+                        currentButton.IsEnabled = false;
+                    }
+
                     if (nextButton != null)
                     {
                         if (isCompleted)

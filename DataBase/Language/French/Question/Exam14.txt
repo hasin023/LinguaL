@@ -1,0 +1,20 @@
+Q.Translate "Comment ça va ?" in English
+A.How are you doing?
+A.Who are you?
+A.How is it?
+Q.Translate "Et toi?" in English
+A.And you?
+A.Are you?
+A.Is he?
+Q.Translate "Hi Emile. How are you?" in French
+A.Salut Émile. Ça va?
+A.Bonjour Émile. Ça va?
+A.Émile Ça va. Salut?
+Q.Reply of the question "How are you?" in French can be
+A.Ça va bien,merci,et toi?
+A.Un crossient,merci,et toi?
+A.Salut comment,merci,et toi?
+Q.Translate "Bonsoir Marie, ça va ?" in English
+A.Good evening Marie, How are you?
+A.Hello Marie, How are you?
+A.Hi Marie, What are you doing?

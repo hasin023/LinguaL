@@ -1,0 +1,20 @@
+Q.Translate "un hommme et un chat" in English
+A.A man and a cat
+A.A man and a woman
+A.A boy and a cat
+Q.Translate "A man and a boy" in French
+A.un homme et un garçon
+A.un garçon et un homme
+A.es chat et un croissant
+Q.Translate "A boy and a cat" in French
+A.un garçon et un chatt
+A.et homme un es manges
+A.es garçon un et homme
+Q.Translate "A girl and a cat" in French
+A.une fille et un chat
+A.une femme et un chat
+A.un chat un et fille
+Q.Translate "Un garçon et une fille" in English
+A.A boy and a girl
+A.A boy and a cat
+A.A man and a woman

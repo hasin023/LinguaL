@@ -1,3 +1,3 @@
-EXP:150
-Level:2
-Proficiency:A1
+EXP:790
+Level:13
+Proficiency:B2

@@ -1,0 +1,8 @@
+Oui-Yes
+Bonjour-Hello
+Bien-Well
+Comment-How
+Tu-You
+Merci-Thank you
+Salut-Hi
+Bonsoir-Good evening

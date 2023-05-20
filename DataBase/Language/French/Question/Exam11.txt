@@ -1,0 +1,20 @@
+Q.Bonsoir, ça va bien ?
+A.Good evening, Are you doing well?
+A.Hello, How are you doing?
+A.Good morning, What are you doing?
+Q.What can be a reply of this question "Bonsoir, Comment ça va ?"
+A.Très bien,merci,Et toi?
+A.Salut!Une orange,c'est très bien
+A.Bonsoir, je mange une orange
+Q.What can be the reply of"Bonjour ! Moi, c'est Anna."
+A.Enchanté,Anna.Moi c'est Paul.
+A.Bonjour,Paul mange une orange.
+A.Bonjour, Son nom est Paul
+Q.Translate "Au revoir, à bientôt !" in English
+A.Goodbye, see you soon!
+A.Good evening, Nice to meet you!
+A.Hello, You are welcome!
+Q.Translate "Goodbye, have a good day" in french
+A.Au revoir bonne journée
+A.Bonjour bonne journée
+A.Salut, je mange une mangue

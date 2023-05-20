@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team_Sharp"
         mc:Ignorable="d"
+        Icon="Assets/Language.ico"
         Title="Menu" Height="300" Width="500" WindowStartupLocation="CenterScreen"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown">

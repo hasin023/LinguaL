@@ -42,5 +42,10 @@
             <Button x:Name="Lesson15" Click="lesson15Click" Margin="0 0 0 20" Style="{StaticResource ExamButton}" BorderThickness="0" FontSize="18" FontWeight="SemiBold" Width="200" Content="Lesson 15" materialDesign:ButtonAssist.CornerRadius="15"/>
         </StackPanel>
 
+        <TextBlock x:Name="LessonDone" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignHeadline2TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 60" Visibility="Hidden">Congratulations!!</TextBlock>
+        <TextBlock x:Name="LessonDone2" Grid.ColumnSpan="3" Style="{StaticResource MaterialDesignHeadline5TextBlock}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="15" Visibility="Hidden">Crushed these Lessons✨</TextBlock>
+
+
+
     </Grid>
 </UserControl>
