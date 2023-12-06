@@ -89,6 +89,7 @@
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\Activity.cs" />
+    <Compile Include="Utility\GenderUtil.cs" />
     <Compile Include="Utility\Global.cs" />
     <Compile Include="Utility\GlobalActivity.cs" />
     <Compile Include="Utility\GlobalLesson.cs" />

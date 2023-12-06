@@ -12,6 +12,9 @@ namespace Team_Sharp
 {
     public partial class Registration : Window
     {
+        GenderUtil genderUtil = new GenderUtil();
+
+
         public Registration()
         {
             InitializeComponent();
@@ -174,7 +177,7 @@ namespace Team_Sharp
         {
             if (dudeButton.IsChecked == true)
             {
-                genderImg.Source = new BitmapImage(new Uri("Assets/dudeIcon.png", UriKind.RelativeOrAbsolute));
+                genderImg.Source = genderUtil.selectMale();
             }
         }
 
@@ -182,7 +185,7 @@ namespace Team_Sharp
         {
             if (girlButton.IsChecked == true)
             {
-                genderImg.Source = new BitmapImage(new Uri("Assets/girlIcon.png", UriKind.RelativeOrAbsolute));
+                genderImg.Source = genderUtil.selectFemale();
             }
 
         }
@@ -191,7 +194,7 @@ namespace Team_Sharp
         {
             if (otherGenButton.IsChecked == true)
             {
-                genderImg.Source = new BitmapImage(new Uri("Assets/otherGenIcon.png", UriKind.RelativeOrAbsolute));
+                genderImg.Source = genderUtil.selectOther();
             }
 
         }
