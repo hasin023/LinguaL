@@ -4,20 +4,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Team_Sharp.Model;
 
 namespace Team_Sharp.View.Exams
 {
     public partial class PlacementTest : Window
     {
+        private readonly User loggedInUser;
+        private string questionName = "PlacementTest";
+
         public RadioButton _b1 { get; set; }
         public RadioButton _b2 { get; set; }
         public RadioButton _b3 { get; set; }
         public RadioButton _b4 { get; set; }
         public RadioButton _b5 { get; set; }
 
-        public PlacementTest(string b1, string b2, string b3, string b4, string b5)
+        public PlacementTest(User loggedInUser, string b1, string b2, string b3, string b4, string b5)
         {
             InitializeComponent();
+            this.loggedInUser = loggedInUser;
 
             _b1 = (RadioButton)FindName(b1);
             _b2 = (RadioButton)FindName(b2);
@@ -25,14 +30,14 @@ namespace Team_Sharp.View.Exams
             _b4 = (RadioButton)FindName(b4);
             _b5 = (RadioButton)FindName(b5);
 
-            LoadQuestions(GlobalQuesFile._placementQuestion);
+            LoadQuestions();
 
         }
 
 
-        public List<Question> LoadQuestions(string str)
+        public List<Question> LoadQuestions()
         {
-            string eQuestion = $@"../../../DataBase/Language/{Global._language}/Question/{str}.txt";
+            string eQuestion = $@"../../../DataBase/Language/{loggedInUser.Language}/Question/{questionName}.txt";
 
             List<Question> questions = new List<Question>();
             string[] lines = File.ReadAllLines(eQuestion);
@@ -47,14 +52,14 @@ namespace Team_Sharp.View.Exams
                     {
                         questions.Add(currentQuestion);
                     }
-                    currentQuestion = new Question { Text = line.Substring(2).Trim(), Options = new List<Option>() };
+                    currentQuestion = new Question(line.Substring(2).Trim(), new List<Option>());
                 }
                 else if (line.StartsWith("A."))
                 {
                     // Option for the current question
                     if (currentQuestion != null && currentQuestion.Options.Count < 3)
                     {
-                        currentQuestion.Options.Add(new Option { Text = line.Substring(2).Trim() });
+                        currentQuestion.Options.Add(new Option(line.Substring(2).Trim()));
                     }
 
                 }
@@ -118,10 +123,10 @@ namespace Team_Sharp.View.Exams
             }
         }
 
-        private void saveUserActivity(string str)
+        private void saveUserActivity()
         {
-            string filePath = $@"../../../DataBase/DashBoardActivity/{Global._language}/{str}.txt";
-            string textToAppend = $"{DateTime.Now},{GlobalActivity._activity}";
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
 
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -130,43 +135,43 @@ namespace Team_Sharp.View.Exams
         }
         private void SavePassedUserProgress()
         {
-            UserProgress._exp = points;
-            UserProgress._userProgressLevel = 1;
-            UserProgress._userProgressProficiency = "A1";
+            loggedInUser.Experience = points;
+            loggedInUser.UserProgressLevel = 1;
+            loggedInUser.UserProgressProficiency = "A1";
 
-            string progress = $@"../../../DataBase/Language/{Global._language}/Progress/{Global._userName}.txt";
+            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
 
             using (StreamWriter sw = File.AppendText(progress))
             {
-                sw.WriteLine($"EXP:{UserProgress._exp}");
-                sw.WriteLine($"Level:{UserProgress._userProgressLevel}");
-                sw.WriteLine($"Proficiency:{UserProgress._userProgressProficiency}");
+                sw.WriteLine($"EXP:{loggedInUser.Experience}");
+                sw.WriteLine($"Level:{loggedInUser.UserProgressLevel}");
+                sw.WriteLine($"Proficiency:{loggedInUser.UserProgressProficiency}");
             }
 
             //Saving the Exam Activity
-            GlobalActivity._activity = GlobalQuesFile._placementQuestion;
-            saveUserActivity(Global._userName);
+            loggedInUser.Activity.Name = questionName;
+            saveUserActivity();
 
-            MessageBox.Show($"You have reached level {UserProgress._userProgressLevel}\nYour proficiency level is {UserProgress._userProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"You have reached level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
         private void SaveFailedUserProgress()
         {
-            UserProgress._exp = points;
-            UserProgress._userProgressLevel = 0;
-            UserProgress._userProgressProficiency = "None";
+            loggedInUser.Experience = points;
+            loggedInUser.UserProgressLevel = 0;
+            loggedInUser.UserProgressProficiency = "None";
 
-            string progress = $@"../../../DataBase/Language/{Global._language}/Progress/{Global._userName}.txt";
+            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
 
             using (StreamWriter sw = File.AppendText(progress))
             {
-                sw.WriteLine($"EXP:{UserProgress._exp}");
-                sw.WriteLine($"Level:{UserProgress._userProgressLevel}");
-                sw.WriteLine($"Proficiency:{UserProgress._userProgressProficiency}");
+                sw.WriteLine($"EXP:{loggedInUser.Experience}");
+                sw.WriteLine($"Level:{loggedInUser.UserProgressLevel}");
+                sw.WriteLine($"Proficiency:{loggedInUser.UserProgressProficiency}");
             }
 
-            MessageBox.Show($"You are level {UserProgress._userProgressLevel}\nYour proficiency level is {UserProgress._userProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"You are level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         public void submitClick(object sender, RoutedEventArgs e)
@@ -181,7 +186,7 @@ namespace Team_Sharp.View.Exams
                 SaveFailedUserProgress();
             }
 
-            new Menu().Show();
+            new Menu(loggedInUser).Show();
         }
 
         private void MarkCorrectOptions(RadioButton radioButton)

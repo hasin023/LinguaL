@@ -1,7 +1,6 @@
 using Team_Sharp.View;
 using System.Windows;
 using System.Windows.Input;
-using Team_Sharp.Utility;
 using Team_Sharp.Handlers;
 using Team_Sharp.Model;
 

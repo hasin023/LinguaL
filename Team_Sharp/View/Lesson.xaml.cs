@@ -1,9 +1,6 @@
-using Team_Sharp.Utility;
-using Team_Sharp.Handlers;
 using Team_Sharp.Model;
 using Team_Sharp.View.Lessons;
 using System.Windows;
-using System.IO;
 using System.Windows.Controls;
 
 namespace Team_Sharp.View

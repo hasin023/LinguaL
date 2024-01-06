@@ -19,6 +19,8 @@ namespace Team_Sharp.Model
 
         private Activity _activity { get; set; }
         private List<LessonClass> _lessons { get; set; }
+        private List<ExamClass> _exams { get; set; }
+
 
         public User(string username, string password, string email, string name, string dob, string gender)
         {
@@ -30,6 +32,7 @@ namespace Team_Sharp.Model
             this._gender = gender;
 
             this._lessons = new List<LessonClass>();
+            this._exams = new List<ExamClass>();
         }
 
         public User(string username, string password)
@@ -38,11 +41,13 @@ namespace Team_Sharp.Model
             this._password = password;
 
             this._lessons = new List<LessonClass>();
+            this._exams = new List<ExamClass>();
         }
 
         public User() 
         {
             this._lessons = new List<LessonClass>();
+            this._exams = new List<ExamClass>();
         }
 
         public string Username
@@ -115,6 +120,12 @@ namespace Team_Sharp.Model
         {
             get { return _lessons; }
             set { _lessons = value; }
+        }
+
+        public List<ExamClass> Exams
+        {
+            get { return _exams; }
+            set { _exams = value; }
         }
 
     }

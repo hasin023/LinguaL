@@ -27,6 +27,7 @@ namespace Team_Sharp.View.Lessons
         }
 
 
+        // NEED TO FIX THIS
         private void CheckLessonCompletion()
         {
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
