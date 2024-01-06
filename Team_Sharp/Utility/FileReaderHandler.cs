@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Team_Sharp.Utility
 {
@@ -54,6 +56,66 @@ namespace Team_Sharp.Utility
                 return null;
             }
         }
+
+
+        public void ReadProgress(string filePath, User user)
+        {
+            try
+            {
+                string[] proggLines = File.ReadAllLines(filePath);
+
+                string exp = null;
+                string level = null;
+                string proficiency = null;
+
+                foreach (string line in proggLines)
+                {
+                    if (line.StartsWith("EXP:"))
+                    {
+                        exp = line.Substring("EXP:".Length).Trim();
+                    }
+                    else if (line.StartsWith("Level:"))
+                    {
+                        level = line.Substring("Level:".Length).Trim();
+                    }
+                    else if (line.StartsWith("Proficiency:"))
+                    {
+                        proficiency = line.Substring("Proficiency:".Length).Trim();
+                    }
+                }
+
+                user.Experience = int.Parse(exp);
+                user.UserProgressLevel = int.Parse(level);
+                user.UserProgressProficiency = proficiency;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading progress file: {ex.Message}");
+            }
+        }
+
+
+        public void SetUserImage(string gender, ImageBrush userImage)
+        {
+            string imagePath = GetImagePathByGender(gender);
+            userImage.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+        }
+
+        private string GetImagePathByGender(string gender)
+        {
+            switch (gender)
+            {
+                case "Male":
+                    return @"../../../Team_Sharp/Assets/dudeIcon.png";
+                case "Female":
+                    return @"../../../Team_Sharp/Assets/girlIcon.png";
+                case "Other":
+                    return @"../../../Team_Sharp/Assets/otherGenIcon.png";
+                default:
+                    return string.Empty;
+            }
+        }
+
     }
 
 }

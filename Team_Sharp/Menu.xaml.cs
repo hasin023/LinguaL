@@ -1,9 +1,6 @@
 using Team_Sharp.View;
-using System;
 using System.Windows;
 using System.Windows.Input;
-using System.IO;
-using System.Windows.Media.Imaging;
 using Team_Sharp.Utility;
 
 namespace Team_Sharp
@@ -11,72 +8,55 @@ namespace Team_Sharp
     public partial class Menu : Window
     {
         private readonly User loggedInUser;
+        private readonly FileReaderHandler fileReaderHandler;
 
         public Menu(User loggedInUser)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
+            fileReaderHandler = new FileReaderHandler();
 
             HandleOnStartUP();
         }
-
 
         public void HandleOnStartUP()
         {
             UserNameText.Text = loggedInUser.Name;
             string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
 
-            if (!File.Exists(progress))
+            if (!fileReaderHandler.UserFileExists(progress))
             {
                 MessageBox.Show("No records found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            fileReaderHandler.ReadProgress(progress, loggedInUser);
 
-            string[] proggLines = File.ReadAllLines(progress);
+            userBlock.Text = loggedInUser.Username;
+            langBlock.Text = loggedInUser.Language;
 
-            string exp = null;
-            string level = null;
-            string proficiency = null;
-
-            foreach (string uL in proggLines)
-            {
-                if (uL.StartsWith("EXP:"))
-                {
-                    exp = uL.Remove(0, 4);
-                }
-                else if (uL.StartsWith("Level:"))
-                {
-                    level = uL.Remove(0, 6);
-                }
-                else if (uL.StartsWith("Proficiency:"))
-                {
-                    proficiency = uL.Remove(0, 12);
-                }
-
-            }
-
-            loggedInUser.Experience = int.Parse(exp);
-            loggedInUser.UserProgressLevel = int.Parse(level);
-            loggedInUser.UserProgressProficiency = proficiency;
-
-            userBlock.Text = Global._userName;
-
-            langBlock.Text = Global._language;
-
-            if (Global._gender == "Male")
-            {
-                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Team_Sharp/Assets/dudeIcon.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (Global._gender == "Female")
-            {
-                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Team_Sharp/Assets/girlIcon.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (Global._gender == "Other")
-            {
-                userImage.ImageSource = new BitmapImage(new Uri(@"../../../Team_Sharp/Assets/otherGenIcon.png", UriKind.RelativeOrAbsolute));
-            }
+            fileReaderHandler.SetUserImage(loggedInUser.Gender, userImage);
         }
 
+        
+
+        // Menu Buttons
+        private void dashboardClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Dashboard();
+        }
+
+        private void lessonClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Lesson();
+        }
+
+        private void examClick(object sender, RoutedEventArgs e)
+        {
+            menuCon.Content = new Exam();
+        }
+
+
+        // Window Buttons
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -108,26 +88,13 @@ namespace Team_Sharp
 
         }
 
-        private void dashboardClick(object sender, RoutedEventArgs e)
-        {
-            menuCon.Content = new Dashboard();
-        }
-
-        private void lessonClick(object sender, RoutedEventArgs e)
-        {
-            menuCon.Content = new Lesson();
-        }
-
-        private void examClick(object sender, RoutedEventArgs e)
-        {
-            menuCon.Content = new Exam();
-        }
-
         private void exitApplication(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
+
+        // Logout
         private void logoutClick(object sender, RoutedEventArgs e)
         {
             this.Hide();
