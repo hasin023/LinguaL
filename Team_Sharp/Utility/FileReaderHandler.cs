@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -155,6 +156,23 @@ namespace Team_Sharp.Utility
         }
 
 
+        public List<Activity> ReadActivitiesFromFile(User loggedInUser)
+        {
+            List<Activity> activities = new List<Activity>();
+
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
+            string[] lines = File.ReadAllLines(filePath);
+
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(',');
+                DateTime date = DateTime.Parse(parts[0].Trim());
+                string name = parts[1].Trim();
+                activities.Add(new Activity { Date = date, Name = name });
+            }
+
+            return activities;
+        }
 
     }
 

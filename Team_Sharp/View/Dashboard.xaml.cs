@@ -48,7 +48,7 @@ namespace Team_Sharp.View
         {
             DateTime selectedDate = Calendar.SelectedDate.Value;
 
-            List<Activity> activities = ReadActivitiesFromFile(loggedInUser.Username);
+            List<Activity> activities = fileReaderHandler.ReadActivitiesFromFile(loggedInUser);
 
             List<Activity> activitiesForSelectedDate = new List<Activity>();
 
@@ -62,23 +62,7 @@ namespace Team_Sharp.View
             ActivityList.ItemsSource = activitiesForSelectedDate;
         }
 
-        private List<Activity> ReadActivitiesFromFile(string str)
-        {
-            List<Activity> activities = new List<Activity>();
 
-            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{str}.txt";
-            string[] lines = File.ReadAllLines(filePath);
-
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split(',');
-                DateTime date = DateTime.Parse(parts[0].Trim());
-                string name = parts[1].Trim();
-                activities.Add(new Activity { Date = date, Name = name });
-            }
-
-            return activities;
-        }
 
     }   
 }
