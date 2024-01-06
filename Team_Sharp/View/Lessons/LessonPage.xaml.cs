@@ -10,7 +10,7 @@ namespace Team_Sharp.View.Lessons
 {
     public partial class LessonPage : Window
     {
-        private readonly User loggedInUser;
+        private User loggedInUser;
         private string lessonName;
         private FileReaderHandler fileReaderHandler;
 
@@ -121,7 +121,7 @@ namespace Team_Sharp.View.Lessons
         private void saveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
 
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -138,7 +138,7 @@ namespace Team_Sharp.View.Lessons
 
         private void SaveLessonComplete()
         {
-            loggedInUser.Activity.Name = lessonName;
+            loggedInUser.CurrentActivity = lessonName;
             saveUserActivity();
         }
 

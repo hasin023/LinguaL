@@ -85,18 +85,19 @@
     <Compile Include="Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ExamClass.cs" />
+    <Compile Include="Model\LessonClass.cs" />
     <Compile Include="Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utility\Activity.cs" />
+    <Compile Include="Model\Activity.cs" />
+    <Compile Include="Handlers\FileReaderHandler.cs" />
+    <Compile Include="Handlers\FileWriterHandler.cs" />
     <Compile Include="Utility\GenderUtil.cs" />
-    <Compile Include="Utility\Global.cs" />
-    <Compile Include="Utility\GlobalActivity.cs" />
-    <Compile Include="Utility\GlobalLesson.cs" />
-    <Compile Include="Utility\GlobalQuesFile.cs" />
-    <Compile Include="Utility\User.cs" />
-    <Compile Include="Utility\UserManager.cs" />
-    <Compile Include="Utility\UserProgress.cs" />
+    <Compile Include="Handlers\LessonExamHandler.cs" />
+    <Compile Include="Utility\PasswordHasher.cs" />
+    <Compile Include="Model\User.cs" />
+    <Compile Include="Utility\UserAuthentication.cs" />
     <Compile Include="View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>
     </Compile>
@@ -149,9 +150,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\35_instagram_default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

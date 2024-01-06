@@ -10,7 +10,7 @@ namespace Team_Sharp.View.Exams
 {
     public partial class PlacementTest : Window
     {
-        private readonly User loggedInUser;
+        private User loggedInUser;
         private string questionName = "PlacementTest";
 
         public RadioButton _b1 { get; set; }
@@ -126,7 +126,7 @@ namespace Team_Sharp.View.Exams
         private void saveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
 
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -149,7 +149,7 @@ namespace Team_Sharp.View.Exams
             }
 
             //Saving the Exam Activity
-            loggedInUser.Activity.Name = questionName;
+            loggedInUser.CurrentActivity = questionName;
             saveUserActivity();
 
             MessageBox.Show($"You have reached level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);

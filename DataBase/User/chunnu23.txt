@@ -1,0 +1,6 @@
+Username:chunnu23
+Password:40220dc2e59cbbf666be64453771cbbc7f8b90907e4aa0e05142acedf42d72d3
+Name:Chunnu
+Email:chunnu@yahoo.com
+DOB:23-07-1998
+Gender:Male

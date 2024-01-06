@@ -13,6 +13,7 @@ namespace Team_Sharp.Model
         private string _gender { get; set; }
 
         private string _language { get; set; }
+        private string _currentActivity { get; set; }
         private int _exp { get; set; }
         private int _userProgressLevel { get; set; }
         private string _userProgressProficiency { get; set; }
@@ -90,6 +91,12 @@ namespace Team_Sharp.Model
         {
             get { return _language; }
             set { _language = value; }
+        }
+
+        public string CurrentActivity
+        {
+            get { return _currentActivity; }
+            set { _currentActivity = value; }
         }
 
         public int Experience

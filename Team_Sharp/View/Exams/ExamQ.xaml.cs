@@ -10,7 +10,7 @@ namespace Team_Sharp.View.Exams
 {
     public partial class ExamQ : Window
     {
-        private readonly User loggedInUser;
+        private User loggedInUser;
         private string questionNo;
         public RadioButton _b1 { get; set; }
         public RadioButton _b2 { get; set; }
@@ -141,7 +141,7 @@ namespace Team_Sharp.View.Exams
         private void saveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{GlobalActivity._activity}";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
 
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -151,7 +151,7 @@ namespace Team_Sharp.View.Exams
 
         private void UpdateExamStatus()
         {
-            string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/ExamLock/{loggedInUser.UserProgressLevel}/{questionNo}.txt";
+            string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/ExamLock/{loggedInUser.Username}/{questionNo}.txt";
 
             ReplaceLineInFile(filePath,$"{loggedInUser.Username},false",$"{loggedInUser.Username},true");
         }
@@ -236,7 +236,7 @@ namespace Team_Sharp.View.Exams
             loggedInUser.UserProgressProficiency = newProficiency;
 
             //Saving the Exam Activity
-            loggedInUser.Activity.Name = questionNo;
+            loggedInUser.CurrentActivity = questionNo;
             saveUserActivity();
 
 

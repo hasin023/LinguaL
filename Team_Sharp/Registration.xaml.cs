@@ -24,7 +24,7 @@ namespace Team_Sharp
             genderImg.Source = image;
         }
 
-        private void DudeClick(object sender, RoutedEventArgs e)
+        private void dudeClick(object sender, RoutedEventArgs e)
         {
             if (dudeButton.IsChecked == true)
             {
@@ -32,7 +32,7 @@ namespace Team_Sharp
             }
         }
 
-        private void GirlClick(object sender, RoutedEventArgs e)
+        private void girlClick(object sender, RoutedEventArgs e)
         {
             if (girlButton.IsChecked == true)
             {
@@ -40,12 +40,17 @@ namespace Team_Sharp
             }
         }
 
-        private void OtherClick(object sender, RoutedEventArgs e)
+        private void otherClick(object sender, RoutedEventArgs e)
         {
             if (otherGenButton.IsChecked == true)
             {
                 GenderButtonClick(genderUtil.SelectOther());
             }
+        }
+
+        private void save_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Account Saved!!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void reset_Click(object sender, RoutedEventArgs e)
