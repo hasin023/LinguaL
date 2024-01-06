@@ -1,8 +1,5 @@
 using Team_Sharp.Utility;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -12,14 +9,13 @@ namespace Team_Sharp
 {
     public partial class Registration : Window
     {
+        private GenderUtil genderUtil = new GenderUtil();
 
         public Registration()
         {
             InitializeComponent();
         }
 
-
-        GenderUtil genderUtil = new GenderUtil();
 
         private void GenderButtonClick(BitmapImage image)
         {
@@ -69,6 +65,7 @@ namespace Team_Sharp
         }
 
 
+        // Register Button
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             UserAuthentication registrationLogic = new UserAuthentication();

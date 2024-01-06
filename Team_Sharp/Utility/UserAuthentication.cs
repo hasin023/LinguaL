@@ -11,6 +11,8 @@ namespace Team_Sharp.Utility
 {
     public class UserAuthentication
     {
+        FileReaderHandler fileReaderHandler = new FileReaderHandler();
+        PasswordHasher passwordHasher = new PasswordHasher();
 
         public User RegisterUser(string username, string password, string confirmPassword, string name, string email, string dob, bool isMale, bool isFemale, bool isOther)
         {
@@ -53,6 +55,42 @@ namespace Team_Sharp.Utility
             return null;
         }
 
+
+
+        public User AuthenticateUser(User user)
+        {
+            string userFilePath = $@"../../../DataBase/User/{user.Username}.txt";
+
+            if (!fileReaderHandler.UserFileExists(userFilePath))
+            {
+                MessageBox.Show("Account does not exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            User storedUser = fileReaderHandler.ReadUserFromFile(userFilePath);
+
+            if (storedUser == null)
+            {
+                MessageBox.Show("Error reading user information", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            if (!string.Equals(user.Username, storedUser.Username, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Incorrect username", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            string enteredPasswordHash = passwordHasher.HashPassword(user.Password);
+
+            if (!string.Equals(enteredPasswordHash, storedUser.Password))
+            {
+                MessageBox.Show("Incorrect password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+
+            return storedUser;
+        }
 
     }
 }

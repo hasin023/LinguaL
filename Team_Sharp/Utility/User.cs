@@ -29,6 +29,8 @@
             this._password = password;
         }
 
+        public User() { }
+
         public string Username
         {
             get { return _username; }
