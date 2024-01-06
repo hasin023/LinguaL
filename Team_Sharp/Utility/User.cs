@@ -9,6 +9,7 @@
         private string _dob { get; set; }
         private string _gender { get; set; }
 
+        private string _language { get; set; }
         private int _exp { get; set; }
         private int _userProgressLevel { get; set; }
         private string _userProgressProficiency { get; set; }
@@ -65,6 +66,12 @@
         {
             get { return _gender; }
             set { _gender = value; }
+        }
+
+        public string Language
+        {
+            get { return _language; }
+            set { _language = value; }
         }
 
         public int Experience

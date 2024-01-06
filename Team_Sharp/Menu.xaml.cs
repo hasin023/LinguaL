@@ -10,18 +10,21 @@ namespace Team_Sharp
 {
     public partial class Menu : Window
     {
-        public Menu()
+        private readonly User loggedInUser;
+
+        public Menu(User loggedInUser)
         {
             InitializeComponent();
+            this.loggedInUser = loggedInUser;
 
-            OnStartUP();
-            UserNameText.Text = Global._name;
+            HandleOnStartUP();
         }
 
 
-        public void OnStartUP()
+        public void HandleOnStartUP()
         {
-            string progress = $@"../../../DataBase/Language/{Global._language}/Progress/{Global._userName}.txt";
+            UserNameText.Text = loggedInUser.Name;
+            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
 
             if (!File.Exists(progress))
             {
@@ -52,9 +55,9 @@ namespace Team_Sharp
 
             }
 
-            UserProgress._exp = int.Parse(exp);
-            UserProgress._userProgressLevel = int.Parse(level);
-            UserProgress._userProgressProficiency = proficiency;
+            loggedInUser.Experience = int.Parse(exp);
+            loggedInUser.UserProgressLevel = int.Parse(level);
+            loggedInUser.UserProgressProficiency = proficiency;
 
             userBlock.Text = Global._userName;
 
