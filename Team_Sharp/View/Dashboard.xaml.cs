@@ -10,89 +10,45 @@ namespace Team_Sharp.View
 {
     public partial class Dashboard : UserControl
     {
-        private List<Activity> activities = new List<Activity>();
+        private readonly User loggedInUser;
+        private FileReaderHandler fileReaderHandler;
 
-        public Dashboard()
+        public Dashboard(User loggedInUser)
         {
             InitializeComponent();
+            this.loggedInUser = loggedInUser;
+            fileReaderHandler = new FileReaderHandler();
 
-            ReadProgress();
-            LoadMotivation();
-
-
+            LoadProgressBar();
+            fileReaderHandler.LoadMotivation(QuoteText);
         }
 
-        private void ReadProgress()
+        private void LoadProgressBar()
         {
-            string progress = $@"../../../DataBase/Language/{Global._language}/Progress/{Global._userName}.txt";
+            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
 
-            if (!File.Exists(progress))
+            if (!fileReaderHandler.UserFileExists(progress))
             {
                 MessageBox.Show("No records found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            fileReaderHandler.ReadProgress(progress, loggedInUser);
 
-            string[] proggLines = File.ReadAllLines(progress);
 
-            string exp = null;
-            string level = null;
-            string proficiency = null;
+            progressBar.Value = loggedInUser.Experience / 10;
+            progressTextPer.Text = (loggedInUser.Experience / 10).ToString("0.00") + "%";
 
-            foreach (string uL in proggLines)
-            {
-                if (uL.StartsWith("EXP:"))
-                {
-                    exp = uL.Remove(0, 4);
-                }
-                else if (uL.StartsWith("Level:"))
-                {
-                    level = uL.Remove(0, 6);
-                }
-                else if (uL.StartsWith("Proficiency:"))
-                {
-                    proficiency = uL.Remove(0, 12);
-                }
-
-            }
-
-            UserProgress._exp = int.Parse(exp);
-            UserProgress._userProgressLevel = int.Parse(level);
-            UserProgress._userProgressProficiency = proficiency;
-            progressBar.Value = UserProgress._exp / 10;
-            progressTextPer.Text = (UserProgress._exp / 10).ToString("0.00") + "%";
-
-            progressLevel.Text = UserProgress._userProgressLevel.ToString();
-            progressProff.Text = UserProgress._userProgressProficiency.ToString();
-            totalExp.Text = UserProgress._exp.ToString();
+            progressLevel.Text = loggedInUser.UserProgressLevel.ToString();
+            progressProff.Text = loggedInUser.UserProgressProficiency.ToString();
+            totalExp.Text = loggedInUser.Experience.ToString();
         }
 
-        private void LoadMotivation()
-        {
-
-            string filePath = $@"../../../DataBase/Quotes/Quotes.txt";
-            string[] quotes = File.ReadAllLines(filePath);
-
-
-            Random random = new Random();
-            int index = random.Next(0, quotes.Length);
-
-
-            string[] parts = quotes[index].Split('_');
-            string randomText = parts[0].Trim();
-            string person = parts[1].Trim();
-
-
-            QuoteText.Text = $"{randomText} " + "\n" +
-                $"      - {person}";
-        }
 
         private void MyCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime selectedDate = Calendar.SelectedDate.Value;
 
-            
-            List<Activity> activities = ReadActivitiesFromFile(Global._userName);
-
+            List<Activity> activities = ReadActivitiesFromFile(loggedInUser.Username);
 
             List<Activity> activitiesForSelectedDate = new List<Activity>();
 
@@ -110,7 +66,7 @@ namespace Team_Sharp.View
         {
             List<Activity> activities = new List<Activity>();
 
-            string filePath = $@"../../../DataBase/DashBoardActivity/{Global._language}/{str}.txt";
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{str}.txt";
             string[] lines = File.ReadAllLines(filePath);
 
             foreach (string line in lines)

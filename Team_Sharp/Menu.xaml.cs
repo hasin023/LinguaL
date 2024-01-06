@@ -8,7 +8,7 @@ namespace Team_Sharp
     public partial class Menu : Window
     {
         private readonly User loggedInUser;
-        private readonly FileReaderHandler fileReaderHandler;
+        private FileReaderHandler fileReaderHandler;
 
         public Menu(User loggedInUser)
         {
@@ -42,17 +42,17 @@ namespace Team_Sharp
         // Menu Buttons
         private void dashboardClick(object sender, RoutedEventArgs e)
         {
-            menuCon.Content = new Dashboard();
+            menuCon.Content = new Dashboard(loggedInUser);
         }
 
         private void lessonClick(object sender, RoutedEventArgs e)
         {
-            menuCon.Content = new Lesson();
+            menuCon.Content = new Lesson(loggedInUser);
         }
 
         private void examClick(object sender, RoutedEventArgs e)
         {
-            menuCon.Content = new Exam();
+            menuCon.Content = new Exam(loggedInUser);
         }
 
 

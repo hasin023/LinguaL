@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -115,6 +116,45 @@ namespace Team_Sharp.Utility
                     return string.Empty;
             }
         }
+
+
+        public void LoadMotivation(TextBlock quoteText)
+        {
+            string filePath = $@"../../../DataBase/Quotes/Quotes.txt";
+            string randomQuote = GetRandomQuote(filePath);
+
+            if (!string.IsNullOrEmpty(randomQuote))
+            {
+                string[] parts = randomQuote.Split('_');
+                string randomText = parts[0].Trim();
+                string person = parts[1].Trim();
+
+                DisplayQuote(quoteText, randomText, person);
+            }
+        }
+
+        private string GetRandomQuote(string filePath)
+        {
+            try
+            {
+                string[] quotes = File.ReadAllLines(filePath);
+                Random random = new Random();
+                int index = random.Next(0, quotes.Length);
+                return quotes[index];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading quotes file: {ex.Message}");
+                return string.Empty;
+            }
+        }
+
+        private void DisplayQuote(TextBlock quoteText, string randomText, string person)
+        {
+            quoteText.Text = $"{randomText}\n      - {person}";
+        }
+
+
 
     }
 
