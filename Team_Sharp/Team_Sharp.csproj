@@ -95,6 +95,7 @@
     <Compile Include="Utility\GlobalLesson.cs" />
     <Compile Include="Utility\GlobalQuesFile.cs" />
     <Compile Include="Utility\User.cs" />
+    <Compile Include="Utility\UserManager.cs" />
     <Compile Include="Utility\UserProgress.cs" />
     <Compile Include="View\Dashboard.xaml.cs">
       <DependentUpon>Dashboard.xaml</DependentUpon>

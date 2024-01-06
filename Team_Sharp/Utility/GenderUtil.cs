@@ -9,19 +9,18 @@ namespace Team_Sharp.Utility
 {
     public class GenderUtil
     {
-        public BitmapImage selectMale()
+        private BitmapImage LoadImage(string fileName)
         {
-            return new BitmapImage(new Uri("Assets/dudeIcon.png", UriKind.RelativeOrAbsolute));
+            return new BitmapImage(new Uri($"Assets/{fileName}", UriKind.RelativeOrAbsolute));
         }
 
-        public BitmapImage selectFemale()
-        {
-            return new BitmapImage(new Uri("Assets/girlIcon.png", UriKind.RelativeOrAbsolute));
-        }
+        public BitmapImage SelectMale() => LoadImage("dudeIcon.png");
 
-        public BitmapImage selectOther()
-        {
-            return new BitmapImage(new Uri("Assets/otherGenIcon.png", UriKind.RelativeOrAbsolute));
-        }
+        public BitmapImage SelectFemale() => LoadImage("girlIcon.png");
+
+        public BitmapImage SelectOther() => LoadImage("otherGenIcon.png");
+
+        public BitmapImage SelectBackground() => LoadImage("background.png");
+
     }
 }

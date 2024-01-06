@@ -12,8 +12,6 @@ namespace Team_Sharp
 {
     public partial class Registration : Window
     {
-        GenderUtil genderUtil = new GenderUtil();
-
 
         public Registration()
         {
@@ -21,6 +19,86 @@ namespace Team_Sharp
         }
 
 
+        GenderUtil genderUtil = new GenderUtil();
+
+        private void GenderButtonClick(BitmapImage image)
+        {
+            genderImg.Source = image;
+        }
+
+        private void DudeClick(object sender, RoutedEventArgs e)
+        {
+            if (dudeButton.IsChecked == true)
+            {
+                GenderButtonClick(genderUtil.SelectMale());
+            }
+        }
+
+        private void GirlClick(object sender, RoutedEventArgs e)
+        {
+            if (girlButton.IsChecked == true)
+            {
+                GenderButtonClick(genderUtil.SelectFemale());
+            }
+        }
+
+        private void OtherClick(object sender, RoutedEventArgs e)
+        {
+            if (otherGenButton.IsChecked == true)
+            {
+                GenderButtonClick(genderUtil.SelectOther());
+            }
+        }
+
+        private void reset_Click(object sender, RoutedEventArgs e)
+        {
+            txtEmail.Clear();
+            txtName.Clear();
+            txtUsername.Clear();
+            txtDOB.Clear();
+            passBox.Clear();
+            conPassBox.Clear();
+
+            dudeButton.IsChecked = false;
+            girlButton.IsChecked = false;
+            otherGenButton.IsChecked = false;
+
+            genderImg.Source = genderUtil.SelectBackground();
+
+            txtEmail.Focus();
+        }
+
+
+        private void RegButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserAuthentication registrationLogic = new UserAuthentication();
+            FileWriterHandler fileHandler = new FileWriterHandler();
+
+            User user = registrationLogic.RegisterUser(txtUsername.Text, passBox.Password, conPassBox.Password, txtName.Text, txtEmail.Text, txtDOB.Text, dudeButton.IsChecked ?? false, girlButton.IsChecked ?? false, otherGenButton.IsChecked ?? false);
+
+            if (user != null)
+            {
+                string newUserFilePath = $"../../../DataBase/User/{user.Username}.txt";
+                fileHandler.WriteUserToFile(user, newUserFilePath);
+
+                MessageBox.Show("Account created!!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Hide();
+                new Login().Show();
+            }
+        }
+
+
+        // Login Link
+        private void LoginLink_Click(object sender, RequestNavigateEventArgs e)
+        {
+            this.Hide();
+            new Login().Show();
+            e.Handled = true;
+        }
+
+
+
+        // Window events
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -53,158 +131,9 @@ namespace Team_Sharp
             }
         }
 
-        private void reset_Click(object sender, RoutedEventArgs e)
-        {
-            txtEmail.Clear();
-            txtName.Clear();
-            txtUsername.Clear();
-            txtDOB.Clear();
-            passBox.Clear();
-            conPassBox.Clear();
-
-            if (dudeButton.IsChecked == true)
-            {
-                dudeButton.IsChecked = false;
-            }
-            else if(girlButton.IsChecked == true)
-            {
-                girlButton.IsChecked = false;
-            }
-            else
-            {
-                otherGenButton.IsChecked = false;
-            }
-
-            genderImg.Source = new BitmapImage(new Uri("Assets/background.png", UriKind.RelativeOrAbsolute));
-
-            txtEmail.Focus();
-        }
-
-            public List<User> users = new List<User>();
-
-        private void save_Click(object sender, RoutedEventArgs e)
-        {
-            if (passBox.Password.Length >= 6)
-            {
-                if (passBox.Password == conPassBox.Password)
-                {
-                    User newUser = new User(txtUsername.Text, passBox.Password, (users.Count + 1), txtEmail.Text, txtName.Text, txtDOB.Text);
-                    users.Add(newUser);
-                    MessageBox.Show("Draft Saved" + "\n" + "Register to Create Account", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Passwords do not Match!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Password must be at least 6 characters!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        public void regUser(string str)
-        {
-            string newUser = $@"../../../DataBase/User/{str}.txt";
-
-            using (StreamWriter writer = new StreamWriter(newUser))
-            {
-                writer.WriteLine("Username:" + txtUsername.Text);
-
-                if (passBox.Password.Count() >= 6)
-                {
-                    if (passBox.Password == conPassBox.Password)
-                    {
-                        writer.WriteLine("Password:" + passBox.Password);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Passwords do not Match!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Password must be at least 6 characters!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                writer.WriteLine("Email:" + txtEmail.Text);
-                writer.WriteLine("Name:" + txtName.Text);
-                writer.WriteLine("DOB:" + txtDOB.Text);
-
-                if (dudeButton.IsChecked == true)
-                {
-                    writer.WriteLine("Gender:Male");
-                }
-                else if (girlButton.IsChecked == true)
-                {
-                    writer.WriteLine("Gender:Female");
-                }
-                else if (otherGenButton.IsChecked == true)
-                {
-                    writer.WriteLine("Gender:Other");
-                }
-
-            }
-        }
 
 
-        private void RegButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (passBox.Password.Length >= 6)
-            {
-                if (passBox.Password == passBox.Password)
-                {
-                    regUser(txtUsername.Text);
-            
-                    MessageBox.Show("Account created!!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    this.Hide();
-                    new Login().Show();
-                }
-                else
-                {
-                    MessageBox.Show("Passwords not Match!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Password must at least 6 characters", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void dudeClick(object sender, RoutedEventArgs e)
-        {
-            if (dudeButton.IsChecked == true)
-            {
-                genderImg.Source = genderUtil.selectMale();
-            }
-        }
-
-        private void girlClick(object sender, RoutedEventArgs e)
-        {
-            if (girlButton.IsChecked == true)
-            {
-                genderImg.Source = genderUtil.selectFemale();
-            }
-
-        }
-
-        private void otherClick(object sender, RoutedEventArgs e)
-        {
-            if (otherGenButton.IsChecked == true)
-            {
-                genderImg.Source = genderUtil.selectOther();
-            }
-
-        }
-
-        private void LoginLink_Click(object sender, RequestNavigateEventArgs e)
-        {
-            this.Hide();
-            new Login().Show();
-            e.Handled = true;
-        }
+        // Enter key events
 
         private void emailEnterKey(object sender, KeyEventArgs e)
         {
@@ -245,5 +174,7 @@ namespace Team_Sharp
                 conPassBox.Focus();
             }
         }
+
+
     }
 }
