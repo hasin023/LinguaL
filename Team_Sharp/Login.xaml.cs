@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using Team_Sharp.Handlers;
+using Team_Sharp.Model;
 using Team_Sharp.Utility;
 
 namespace Team_Sharp

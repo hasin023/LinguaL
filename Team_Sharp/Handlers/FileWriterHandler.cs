@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using Team_Sharp.Model;
+using Team_Sharp.Utility;
 
-namespace Team_Sharp.Utility
+namespace Team_Sharp.Handlers
 {
     public class FileWriterHandler
     {

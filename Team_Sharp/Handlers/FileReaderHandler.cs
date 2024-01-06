@@ -4,8 +4,9 @@ using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Team_Sharp.Model;
 
-namespace Team_Sharp.Utility
+namespace Team_Sharp.Handlers
 {
     public class FileReaderHandler
     {
@@ -168,7 +169,8 @@ namespace Team_Sharp.Utility
                 string[] parts = line.Split(',');
                 DateTime date = DateTime.Parse(parts[0].Trim());
                 string name = parts[1].Trim();
-                activities.Add(new Activity { Date = date, Name = name });
+                Activity activity = new Activity(date, name);
+                activities.Add(activity);
             }
 
             return activities;

@@ -1,4 +1,7 @@
-﻿namespace Team_Sharp.Utility
+﻿using System.Collections.Generic;
+using Team_Sharp.View;
+
+namespace Team_Sharp.Model
 {
     public class User
     {
@@ -14,6 +17,9 @@
         private int _userProgressLevel { get; set; }
         private string _userProgressProficiency { get; set; }
 
+        private Activity _activity { get; set; }
+        private List<LessonClass> _lessons { get; set; }
+
         public User(string username, string password, string email, string name, string dob, string gender)
         {
             this._username = username;
@@ -22,15 +28,22 @@
             this._name = name;
             this._dob = dob;
             this._gender = gender;
+
+            this._lessons = new List<LessonClass>();
         }
 
         public User(string username, string password)
         {
             this._username = username;
             this._password = password;
+
+            this._lessons = new List<LessonClass>();
         }
 
-        public User() { }
+        public User() 
+        {
+            this._lessons = new List<LessonClass>();
+        }
 
         public string Username
         {
@@ -90,6 +103,18 @@
         {
             get { return _userProgressProficiency; }
             set { _userProgressProficiency = value; }
+        }
+
+        public Activity Activity
+        {
+            get { return _activity; }
+            set { _activity = value; }
+        }
+
+        public List<LessonClass> Lessons
+        {
+            get { return _lessons; }
+            set { _lessons = value; }
         }
 
     }

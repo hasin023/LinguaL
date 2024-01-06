@@ -1,3 +1,5 @@
+using Team_Sharp.Handlers;
+using Team_Sharp.Model;
 using Team_Sharp.Utility;
 using System;
 using System.Windows;
@@ -69,14 +71,14 @@ namespace Team_Sharp
         private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             UserAuthentication registrationLogic = new UserAuthentication();
-            FileWriterHandler fileHandler = new FileWriterHandler();
+            FileWriterHandler fileWriterHandler = new FileWriterHandler();
 
             User user = registrationLogic.RegisterUser(txtUsername.Text, passBox.Password, conPassBox.Password, txtName.Text, txtEmail.Text, txtDOB.Text, dudeButton.IsChecked ?? false, girlButton.IsChecked ?? false, otherGenButton.IsChecked ?? false);
 
             if (user != null)
             {
                 string newUserFilePath = $"../../../DataBase/User/{user.Username}.txt";
-                fileHandler.WriteUserToFile(user, newUserFilePath);
+                fileWriterHandler.WriteUserToFile(user, newUserFilePath);
 
                 MessageBox.Show("Account created!!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Hide();

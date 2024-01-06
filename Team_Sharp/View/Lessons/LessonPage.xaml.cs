@@ -1,35 +1,35 @@
-using Team_Sharp.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using MaterialDesignColors;
-using MaterialDesignThemes;
 using System.Windows.Controls;
+using Team_Sharp.Model;
+using Team_Sharp.Handlers;
 
 namespace Team_Sharp.View.Lessons
 {
     public partial class LessonPage : Window
     {
+        private readonly User loggedInUser;
+        private string lessonName;
+        private FileReaderHandler fileReaderHandler;
 
         private List<Lecture> lectures = new List<Lecture>();
-        public LessonPage()
+        public LessonPage(User loggedInUser, string lessonName)
         {
             InitializeComponent();
-
-            //Check for complete button
-            CheckLessonCompletion(GlobalLesson._lessonFile);
-
-
-            LoadLesson(GlobalLesson._lessonFile);
-
-
+            this.loggedInUser = loggedInUser;
+            this.lessonName = lessonName;
+            fileReaderHandler = new FileReaderHandler();
+            
+            CheckLessonCompletion();
+            LoadLesson();
         }
 
 
-        private void CheckLessonCompletion(string str)
+        private void CheckLessonCompletion()
         {
-            string filePath = $@"../../../DataBase/Language/{Global._language}/LessonLock/{Global._userName}/{str}.txt";
+            string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
             if (File.Exists(filePath))
             {
                 string[] lines = File.ReadAllLines(filePath);
@@ -67,13 +67,11 @@ namespace Team_Sharp.View.Lessons
         }
 
 
-        private void LoadLesson(string str)
+        private void LoadLesson()
         {
-            List<Lecture> lectures = ReadLecturesFromFile(str);
-
+            List<Lecture> lectures = ReadLecturesFromFile();
 
             List<Lecture> lecturesForALesson = new List<Lecture>();
-
             foreach (Lecture l in lectures)
             {
 
@@ -83,11 +81,11 @@ namespace Team_Sharp.View.Lessons
             LessonList.ItemsSource = lecturesForALesson;
         }
 
-        private List<Lecture> ReadLecturesFromFile(string str)
+        private List<Lecture> ReadLecturesFromFile()
         {
             List<Lecture> lectures = new List<Lecture>();
 
-            string filePath = $@"../../../DataBase/Language/{Global._language}/Lesson/{str}.txt";
+            string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/Lesson/{lessonName}.txt";
             string[] lines = File.ReadAllLines(filePath);
 
             foreach (string line in lines)
@@ -95,7 +93,8 @@ namespace Team_Sharp.View.Lessons
                 string[] parts = line.Split('-');
                 string french = parts[0].Trim();
                 string english = parts[1].Trim();
-                lectures.Add(new Lecture { French = french, English = english });
+                Lecture lecture = new Lecture(french, english);
+                lectures.Add(lecture);
             }
 
             return lectures;
@@ -118,10 +117,10 @@ namespace Team_Sharp.View.Lessons
         }
 
 
-        private void saveUserActivity(string str)
+        private void saveUserActivity()
         {
-            string filePath = $@"../../../DataBase/DashBoardActivity/{Global._language}/{str}.txt";
-            string textToAppend = $"{DateTime.Now},{GlobalActivity._activity}";
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
 
             using (StreamWriter writer = new StreamWriter(filePath, true))
             {
@@ -131,31 +130,25 @@ namespace Team_Sharp.View.Lessons
 
         private void UpdateLessonStatus()
         {
-            string filePath = $@"../../../DataBase/Language/{Global._language}/LessonLock/{Global._userName}/{GlobalLesson._lessonFile}.txt";
-
-            ReplaceLineInFile(filePath, $"{Global._userName},false", $"{Global._userName},true");
+            string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
+            ReplaceLineInFile(filePath, $"{loggedInUser.Username},false", $"{loggedInUser.Username},true");
         }
 
 
         private void SaveLessonComplete()
         {
-            //Saving the Lesson Activity
-            GlobalActivity._activity = GlobalLesson._lessonFile;
-            saveUserActivity(Global._userName);
-
+            loggedInUser.Activity.Name = lessonName;
+            saveUserActivity();
         }
 
         public void completeClick(object sender, RoutedEventArgs e)
         {
-
             SaveLessonComplete();
-
-            //UpdateLessonStatus
             UpdateLessonStatus();
             MessageBox.Show("The next lesson is now Available!!","Success",MessageBoxButton.OK,MessageBoxImage.Information);
-            this.Close();
-            
+            this.Close();   
         }
+
 
     }
 }

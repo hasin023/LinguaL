@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using Team_Sharp.Model;
 
-namespace Team_Sharp.Utility
+namespace Team_Sharp.Handlers
 {
     public class LessonExamHandler
     {
