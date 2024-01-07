@@ -13,6 +13,8 @@ namespace Team_Sharp.View.Lessons
         private User loggedInUser;
         private string lessonName;
         private LessonExamHandler lessonExamHandler;
+        private FileWriterHandler fileWriterHandler;
+        private FileReaderHandler fileReaderHandler;
 
         public LessonPage(User loggedInUser, string lessonName)
         {
@@ -20,13 +22,23 @@ namespace Team_Sharp.View.Lessons
             this.loggedInUser = loggedInUser;
             this.lessonName = lessonName;
             this.lessonExamHandler = new LessonExamHandler(loggedInUser);
+            this.fileWriterHandler = new FileWriterHandler();
+            this.fileReaderHandler = new FileReaderHandler();
             
             CheckLessonCompletion();
             LoadLesson();
         }
 
 
-        // NEED TO FIX THIS
+        public void completeClick(object sender, RoutedEventArgs e)
+        {
+            SaveLessonComplete();
+            UpdateLessonStatus();
+            MessageBox.Show("The next lesson is now Available!!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            this.Close();
+        }
+
+
         private void CheckLessonCompletion()
         {
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
@@ -55,7 +67,7 @@ namespace Team_Sharp.View.Lessons
 
         private void LoadLesson()
         {
-            List<Lecture> lectures = ReadLecturesFromFile();
+            List<Lecture> lectures = fileReaderHandler.ReadLecturesFromFile(loggedInUser, lessonName);
 
             List<Lecture> lecturesForALesson = new List<Lecture>();
             foreach (Lecture l in lectures)
@@ -67,73 +79,27 @@ namespace Team_Sharp.View.Lessons
             LessonList.ItemsSource = lecturesForALesson;
         }
 
-        private List<Lecture> ReadLecturesFromFile()
-        {
-            List<Lecture> lectures = new List<Lecture>();
 
-            string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/Lesson/{lessonName}.txt";
-            string[] lines = File.ReadAllLines(filePath);
-
-            foreach (string line in lines)
-            {
-                string[] parts = line.Split('-');
-                string french = parts[0].Trim();
-                string english = parts[1].Trim();
-                Lecture lecture = new Lecture(french, english);
-                lectures.Add(lecture);
-            }
-
-            return lectures;
-        }
-
-
-
-        public static void ReplaceLineInFile(string filePath, string oldLine, string newLine)
-        {
-            string[] lines = File.ReadAllLines(filePath);
-
-            int index = Array.IndexOf(lines, oldLine);
-
-            if (index >= 0)
-            {
-                lines[index] = newLine;
-
-                File.WriteAllLines(filePath, lines);
-            }
-        }
-
-
-        private void saveUserActivity()
-        {
-            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
-
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine(textToAppend);
-            }
-        }
-
+        // Update the lesson status & save the user activity
         private void UpdateLessonStatus()
         {
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
-            ReplaceLineInFile(filePath, $"{loggedInUser.Username},false", $"{loggedInUser.Username},true");
+            fileWriterHandler.ReplaceLineInFile(filePath, $"{loggedInUser.Username},false", $"{loggedInUser.Username},true");
         }
 
+        private void SaveUserActivity()
+        {
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
+            fileWriterHandler.AppendTextToFile(filePath, textToAppend);
+        }
 
         private void SaveLessonComplete()
         {
             loggedInUser.CurrentActivity = lessonName;
-            saveUserActivity();
+            SaveUserActivity();
         }
 
-        public void completeClick(object sender, RoutedEventArgs e)
-        {
-            SaveLessonComplete();
-            UpdateLessonStatus();
-            MessageBox.Show("The next lesson is now Available!!","Success",MessageBoxButton.OK,MessageBoxImage.Information);
-            this.Close();   
-        }
 
 
     }

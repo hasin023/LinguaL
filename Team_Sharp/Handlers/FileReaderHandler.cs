@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Team_Sharp.Model;
+using Team_Sharp.View.Lessons;
 
 namespace Team_Sharp.Handlers
 {
@@ -175,6 +176,28 @@ namespace Team_Sharp.Handlers
 
             return activities;
         }
+
+
+        public List<Lecture> ReadLecturesFromFile(User user, string lessonName)
+        {
+            List<Lecture> lectures = new List<Lecture>();
+
+            string filePath = $@"../../../DataBase/Language/{user.Language}/Lesson/{lessonName}.txt";
+            string[] lines = File.ReadAllLines(filePath);
+
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split('-');
+                string french = parts[0].Trim();
+                string english = parts[1].Trim();
+                Lecture lecture = new Lecture(french, english);
+                lectures.Add(lecture);
+            }
+
+            return lectures;
+        }
+
+
 
     }
 

@@ -1,6 +1,0 @@
-Username:hasin
-Password:111111
-Email:hasin@gmail.com
-Name:Hasin Mahtab
-DOB:27-04-2003
-Gender:Male
