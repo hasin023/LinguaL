@@ -8,7 +8,7 @@ namespace Team_Sharp
 {
     public partial class Menu : Window
     {
-        private readonly User loggedInUser;
+        private User loggedInUser;
         private FileReaderHandler fileReaderHandler;
 
         public Menu(User loggedInUser)
@@ -89,17 +89,21 @@ namespace Team_Sharp
 
         }
 
+
+        // Exit Application
         private void exitApplication(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-
         // Logout
         private void logoutClick(object sender, RoutedEventArgs e)
         {
+            loggedInUser = null;
             this.Hide();
             new Login().Show();
         }
+
+
     }
 }

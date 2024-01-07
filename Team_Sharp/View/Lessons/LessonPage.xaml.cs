@@ -14,7 +14,6 @@ namespace Team_Sharp.View.Lessons
         private string lessonName;
         private LessonExamHandler lessonExamHandler;
         private FileWriterHandler fileWriterHandler;
-        private FileReaderHandler fileReaderHandler;
 
         public LessonPage(User loggedInUser, string lessonName)
         {
@@ -23,7 +22,6 @@ namespace Team_Sharp.View.Lessons
             this.lessonName = lessonName;
             this.lessonExamHandler = new LessonExamHandler(loggedInUser);
             this.fileWriterHandler = new FileWriterHandler();
-            this.fileReaderHandler = new FileReaderHandler();
             
             CheckLessonCompletion();
             LoadLesson();
@@ -65,9 +63,10 @@ namespace Team_Sharp.View.Lessons
         }
 
 
+        // Load the lesson from the list of lectures
         private void LoadLesson()
         {
-            List<Lecture> lectures = fileReaderHandler.ReadLecturesFromFile(loggedInUser, lessonName);
+            List<Lecture> lectures = lessonExamHandler.ReadLessonFromFile(loggedInUser, lessonName);
 
             List<Lecture> lecturesForALesson = new List<Lecture>();
             foreach (Lecture l in lectures)
@@ -90,13 +89,13 @@ namespace Team_Sharp.View.Lessons
         private void SaveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.GetActivityName()}";
             fileWriterHandler.AppendTextToFile(filePath, textToAppend);
         }
 
         private void SaveLessonComplete()
         {
-            loggedInUser.CurrentActivity = lessonName;
+            loggedInUser.SetActivityName(lessonName);
             SaveUserActivity();
         }
 

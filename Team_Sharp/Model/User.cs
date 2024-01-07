@@ -13,12 +13,12 @@ namespace Team_Sharp.Model
         private string _gender { get; set; }
 
         private string _language { get; set; }
-        private string _currentActivity { get; set; }
         private int _exp { get; set; }
         private int _userProgressLevel { get; set; }
         private string _userProgressProficiency { get; set; }
 
         private Activity _activity { get; set; }
+        private ExamResult _examResult { get; set; }
 
 
         public User(string username, string password, string email, string name, string dob, string gender)
@@ -81,12 +81,6 @@ namespace Team_Sharp.Model
             set { _language = value; }
         }
 
-        public string CurrentActivity
-        {
-            get { return _currentActivity; }
-            set { _currentActivity = value; }
-        }
-
         public int Experience
         {
             get { return _exp; }
@@ -110,6 +104,58 @@ namespace Team_Sharp.Model
             get { return _activity; }
             set { _activity = value; }
         }
+
+        public ExamResult ExamResult
+        {
+            get { return _examResult; }
+            set { _examResult = value; }
+        }
+
+        public void SetActivityName(string value)
+        {
+            _activity.Name = value;
+        }
+
+        public string GetActivityName()
+        {
+            return _activity.Name;
+        }
+
+        public void SetExamResultCorrectAnswersCount(int value)
+        {
+            _examResult.CorrectAnswersCount = value;
+        }
+
+        public int GetExamResultCorrectAnswersCount()
+        {
+            return _examResult.CorrectAnswersCount;
+        }
+
+        public void SetExamResultInCorrectAnswersCount(int value)
+        {
+            _examResult.InCorrectAnswersCount = value;
+        }
+
+        public int GetExamResultInCorrectAnswersCount()
+        {
+            return _examResult.InCorrectAnswersCount;
+        }
+
+        public void SetExamResultEarnedPoints(int value)
+        {
+            _examResult.EarnedPoints = value;
+        }
+
+        public int GetExamResultEarnedPoints()
+        {
+            return _examResult.EarnedPoints;
+        }
+
+        public int GetExamResultPointsToGive()
+        {
+            return _examResult.PointsToGive;
+        }
+
 
 
     }

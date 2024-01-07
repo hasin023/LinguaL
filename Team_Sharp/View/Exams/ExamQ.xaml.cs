@@ -1,17 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
-using Team_Sharp.Utility;
+using Team_Sharp.Handlers;
 using Team_Sharp.Model;
+using Team_Sharp.Utility;
 
 namespace Team_Sharp.View.Exams
 {
     public partial class ExamQ : Window
     {
+        private readonly int POINT_TO_ADD = 12;
+        private readonly int PASSING_POINT = 36;
+
         private User loggedInUser;
         private string questionNo;
+        private FileWriterHandler fileWriterHandler;
+        private FileReaderHandler fileReaderHandler;
+        private ExamManagement examManagement;
+
         public RadioButton _b1 { get; set; }
         public RadioButton _b2 { get; set; }
         public RadioButton _b3 { get; set; }
@@ -24,6 +33,10 @@ namespace Team_Sharp.View.Exams
 
             this.loggedInUser = loggedInUser;
             this.questionNo = questionNo;
+            this.fileWriterHandler = new FileWriterHandler();
+            this.fileReaderHandler = new FileReaderHandler();
+            this.examManagement = new ExamManagement(loggedInUser, POINT_TO_ADD);
+
             _b1 = (RadioButton)FindName(b1);
             _b2 = (RadioButton)FindName(b2);
             _b3 = (RadioButton)FindName(b3);
@@ -33,39 +46,45 @@ namespace Team_Sharp.View.Exams
             LoadQuestions();
         }
 
-        public List<Question> LoadQuestions()
+
+        // Window Buttons
+        public void submitClick(object sender, RoutedEventArgs e)
         {
+            CheckAllAnswers();
+
+            if (loggedInUser.ExamResult.EarnedPoints >= PASSING_POINT)
+            {
+                SavePassingProgress();
+                UpdateExamStatus();
+            }
+            else
+            {
+                SaveFailingProgress();
+            }
+        }
+
+        public void showResetClick(object sender, RoutedEventArgs e)
+        {
+            if (SubmitButton.IsEnabled == true)
+            {
+                ShowButtonMethod();
+                ShowResetButton.Content = "Reset";
+            }
+            else
+            {
+                ResetButtonMethod();
+                ShowResetButton.Content = "Show";
+            }
+        }
+
+
+        // Load Exam Questions
+        private void LoadQuestions()
+        {
+            LessonExamHandler lessonExamHandler = new LessonExamHandler(loggedInUser);
+
             string eQuestion = $@"../../../DataBase/Language/{loggedInUser.Language}/Question/{questionNo}.txt";
-
-            List<Question> questions = new List<Question>();
-            string[] lines = File.ReadAllLines(eQuestion);
-            Question currentQuestion = null;
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i].Trim();
-                if (line.StartsWith("Q."))
-                {
-                    if (currentQuestion != null)
-                    {
-                        questions.Add(currentQuestion);
-                    }
-                    currentQuestion = new Question(line.Substring(2).Trim(), new List<Option>());
-                }
-                else if (line.StartsWith("A."))
-                {
-                    if (currentQuestion != null && currentQuestion.Options.Count < 3)
-                    {
-                        currentQuestion.Options.Add(new Option(line.Substring(2).Trim()));
-                    }
-
-                }
-                
-            }
-
-            if (currentQuestion != null)
-            {
-                questions.Add(currentQuestion);
-            }
+            List<Question> questions = lessonExamHandler.ParseQuestionsFromFile(eQuestion);
 
             for (int i = 0; i < questions.Count; i++)
             {
@@ -79,227 +98,78 @@ namespace Team_Sharp.View.Exams
                     optionRadioButton.Tag = j;
                 }
             }
-
-            return questions;
         }
 
 
-        int correctAns = 0;
-        int wrongAns = 0;
-        int points = 0;
-        int pointToGive = 12;
-        public void checkAnswer()
-        {
-            CheckQuestion(_b1, pointToGive);
-            CheckQuestion(_b2, pointToGive);
-            CheckQuestion(_b3, pointToGive);
-            CheckQuestion(_b4, pointToGive);
-            CheckQuestion(_b5, pointToGive);
 
-            if (points >= 36)
-            {
-                MessageBox.Show($"Answered {correctAns} questions correctly\nScored {points} points\nStatus: PASSED", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show($"Answered {wrongAns} questions wrong\nScored {points} points\nStatus: FAILED", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
-            }
-
-        }
-
-        private void CheckQuestion(RadioButton radioButton, int pointsToAdd)
-        {
-            if (radioButton.IsChecked == true)
-            {
-                correctAns++;
-                points += pointsToAdd;
-            }
-            else
-            {
-                wrongAns++;
-            }
-        }
-
-
-        public static void ReplaceLineInFile(string filePath, string oldLine, string newLine)
-        {
-            string[] lines = File.ReadAllLines(filePath);
-
-            int index = Array.IndexOf(lines, oldLine);
-
-            if (index >= 0)
-            {
-                lines[index] = newLine;
-
-                File.WriteAllLines(filePath, lines);
-            }
-        }
-
-
-        private void saveUserActivity()
-        {
-            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.CurrentActivity}";
-
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine(textToAppend);
-            }
-        }
-
+        // Update the exam status & save the user activity
         private void UpdateExamStatus()
         {
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/ExamLock/{loggedInUser.Username}/{questionNo}.txt";
-
-            ReplaceLineInFile(filePath,$"{loggedInUser.Username},false",$"{loggedInUser.Username},true");
+            fileWriterHandler.ReplaceLineInFile(filePath, $"{loggedInUser.Username},false", $"{loggedInUser.Username},true");
         }
 
-        private void SavePassedUserProgress()
+        private void SaveUserActivity()
         {
-            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.GetActivityName()}";
+            fileWriterHandler.AppendTextToFile(filePath, textToAppend);
+        }
 
-            if (!File.Exists(progress))
-            {
-                MessageBox.Show("No records found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
-            string[] proggLines = File.ReadAllLines(progress);
+        // Exam Management Logic
+        public void CheckAllAnswers()
+        {
+            examManagement.CheckCorrectOption(_b1);
+            examManagement.CheckCorrectOption(_b2);
+            examManagement.CheckCorrectOption(_b3);
+            examManagement.CheckCorrectOption(_b4);
+            examManagement.CheckCorrectOption(_b5);
 
-            string exp = null;
-            string level = null;
-            string proficiency = null;
-
-            foreach (string uL in proggLines)
+            if (loggedInUser.ExamResult.EarnedPoints >= PASSING_POINT)
             {
-                if (uL.StartsWith("EXP:"))
-                {
-                    exp = uL.Remove(0, 4);
-                }
-                else if (uL.StartsWith("Level:"))
-                {
-                    level = uL.Remove(0, 6);
-                }
-                else if (uL.StartsWith("Proficiency:"))
-                {
-                    proficiency = uL.Remove(0, 12);
-                }
-
-            }
-
-            // A1, A2, B1, B2, C1, and C2
-            int newExp = int.Parse(exp) + points;
-            int newLevel;
-            string newProficiency = null;
-            if (newExp >= 1000)
-            {
-                newLevel = int.Parse(level) + 1;
-                newProficiency = "C2";
-            }
-            else if (newExp >= 800)
-            {
-                newLevel = int.Parse(level) + 1;
-                newProficiency = "C1";
-            }
-            else if (newExp >= 600)
-            {
-                newLevel = int.Parse(level) + 1;
-                newProficiency = "B2";
-            }
-            else if (newExp >= 400)
-            {
-                newLevel = int.Parse(level) + 1;
-                newProficiency = "B1";
-            }
-            else if (newExp >= 200)
-            {
-                newLevel = int.Parse(level) + 1;
-                newProficiency = "A2";
-            }
-            else if( newExp >= 100)
-            {
-                newLevel = int.Parse(level) + 1;
-                newProficiency = "A1";
+                MessageBox.Show($"Answered {loggedInUser.ExamResult.CorrectAnswersCount} questions correctly\nScored {loggedInUser.ExamResult.EarnedPoints} points\nStatus: PASSED", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
             }
             else
             {
-                newLevel = int.Parse(level);
-                newProficiency = proficiency;
+                MessageBox.Show($"Answered {loggedInUser.ExamResult.InCorrectAnswersCount} questions wrong\nScored {loggedInUser.ExamResult.EarnedPoints} points\nStatus: FAILED", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
             }
 
-            ReplaceLineInFile(progress, $"EXP:{exp}", $"EXP:{newExp}");
-            ReplaceLineInFile(progress, $"Level:{level}", $"Level:{newLevel}");
-            loggedInUser.UserProgressLevel = newLevel;
-            ReplaceLineInFile(progress, $"Proficiency:{proficiency}", $"Proficiency:{newProficiency}");
-            loggedInUser.UserProgressProficiency = newProficiency;
+        }
 
-            //Saving the Exam Activity
-            loggedInUser.CurrentActivity = questionNo;
-            saveUserActivity();
+        private void SavePassingProgress()
+        {
+            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
+            fileReaderHandler.ReadProgress(progress, loggedInUser);
 
+            int prevLevel = loggedInUser.UserProgressLevel;
+            string prevProficiency = loggedInUser.UserProgressProficiency;
+            int prevExp = loggedInUser.Experience;
+
+            examManagement.CalculatePassingProgress(progress);
+
+            fileWriterHandler.ReplaceLineInFile(progress, $"EXP:{prevExp}", $"EXP:{loggedInUser.Experience}");
+            fileWriterHandler.ReplaceLineInFile(progress, $"Level:{prevLevel}", $"Level:{loggedInUser.UserProgressLevel}");
+            fileWriterHandler.ReplaceLineInFile(progress, $"Proficiency:{prevProficiency}", $"Proficiency:{loggedInUser.UserProgressProficiency}");
+
+            loggedInUser.SetActivityName(questionNo);
+            SaveUserActivity();
 
             MessageBox.Show($"You have reached level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-
-        private void SaveFailedUserProgress()
+        private void SaveFailingProgress()
         {
             string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
-
-            if (!File.Exists(progress))
-            {
-                MessageBox.Show("No records found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            string[] proggLines = File.ReadAllLines(progress);
-
-            string exp = null;
-            string level = null;
-            string proficiency = null;
-
-            foreach (string uL in proggLines)
-            {
-                if (uL.StartsWith("EXP:"))
-                {
-                    exp = uL.Remove(0, 4);
-                }
-                else if (uL.StartsWith("Level:"))
-                {
-                    level = uL.Remove(0, 6);
-                }
-                else if (uL.StartsWith("Proficiency:"))
-                {
-                    proficiency = uL.Remove(0, 12);
-                }
-
-            }
-
-            loggedInUser.Experience = int.Parse(exp);
-            loggedInUser.UserProgressLevel = int.Parse(level);
-            loggedInUser.UserProgressProficiency = proficiency;
-
+            fileReaderHandler.ReadProgress(progress, loggedInUser);
 
             MessageBox.Show($"You are level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        public void submitClick(object sender, RoutedEventArgs e)
-        {
-            checkAnswer();
-            if (points >= 36)
-            {
-                SavePassedUserProgress();
-                //UpdateExamStatus
-                UpdateExamStatus();
-            }
-            else
-            {
-                SaveFailedUserProgress();
-            }
-        }
 
+        // Show/Reset Button Logic
         private void MarkCorrectOptions(RadioButton radioButton)
         {
             radioButton.Style = (Style)FindResource("MaterialDesignAccentRadioButton");
@@ -320,7 +190,7 @@ namespace Team_Sharp.View.Exams
             MarkCorrectOptions(_b4);
             MarkCorrectOptions(_b5);
 
-            points -= 5;
+            loggedInUser.ExamResult.EarnedPoints -= 5;
             SubmitButton.IsEnabled = false;
         }
 
@@ -335,19 +205,6 @@ namespace Team_Sharp.View.Exams
             SubmitButton.IsEnabled = true;
         }
 
-        public void showResetClick(object sender, RoutedEventArgs e)
-        {
-            if(SubmitButton.IsEnabled == true)
-            {
-                ShowButtonMethod();
-                ShowResetButton.Content = "Reset";
-            }
-            else
-            {
-                ResetButtonMethod();
-                ShowResetButton.Content = "Show";
-            }
-        }
 
 
     }
