@@ -2,50 +2,60 @@ using Team_Sharp.Model;
 using Team_Sharp.View.Lessons;
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
+using Team_Sharp.Handlers;
 
 namespace Team_Sharp.View
 {
     public partial class Lesson : UserControl
     {
         private readonly User loggedInUser;
+        private LessonExamHandler lessonExamHandler;
 
         public Lesson(User loggedInUser)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
+            this.lessonExamHandler = new LessonExamHandler(loggedInUser);
 
-            CheckLessonCompletion();
+            HandleLessonLocks();
         }
 
 
-        // NEED TO FIX THIS
-        private void CheckLessonCompletion()
+        // Handle Lesson Locks on Startup
+        private void HandleLessonLocks()
         {
-            foreach (var _lesson in loggedInUser.Lessons)
+            for (int i = 1; i <= 15; i++)
             {
-                string currentLessonButton = _lesson.LessonName;
-                string nextLessonButton = "Lesson" + (int.Parse(_lesson.LessonName.Substring("Lesson".Length)) + 1);
-
-                Button currentButton = (Button)FindName(currentLessonButton);
-                Button nextButton = (Button)FindName(nextLessonButton);
-
-                if (currentLessonButton == "Lesson15" && _lesson.IsCompleted)
+                string lessonName = "Lesson" + i;
+                string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
+                if (File.Exists(filePath))
                 {
-                    LessonDone.Visibility = Visibility.Visible;
-                    LessonDone2.Visibility = Visibility.Visible;
-                    currentButton.Style = (Style)FindResource("ExamAccentButton");
-                }
+                    bool isComplete = lessonExamHandler.IsComplete(filePath);
 
-                if (nextButton != null)
-                {
-                    if (_lesson.IsCompleted)
+                    string currentLessonButton = lessonName;
+                    string nextLessonButton = "Lesson" + (i + 1);
+                    Button currentButton = (Button)FindName(currentLessonButton);
+                    Button nextButton = (Button)FindName(nextLessonButton);
+
+                    if (currentLessonButton == "Lesson15" && isComplete == true)
                     {
+                        LessonDone.Visibility = Visibility.Visible;
+                        LessonDone2.Visibility = Visibility.Visible;
                         currentButton.Style = (Style)FindResource("ExamAccentButton");
-                        nextButton.IsEnabled = true;
                     }
-                    else
+
+                    if (nextButton != null)
                     {
-                        nextButton.IsEnabled = false;
+                        if (isComplete)
+                        {
+                            currentButton.Style = (Style)FindResource("ExamAccentButton");
+                            nextButton.IsEnabled = true;
+                        }
+                        else
+                        {
+                            nextButton.IsEnabled = false;
+                        }
                     }
                 }
             }

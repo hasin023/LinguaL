@@ -3,40 +3,41 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Team_Sharp.Model;
-using System.Linq;
+using Team_Sharp.Handlers;
 
 namespace Team_Sharp.View
 {
     public partial class Exam : UserControl
     {
         private readonly User loggedInUser;
+        private LessonExamHandler lessonExamHandler;
 
         public Exam(User loggedInUser)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
+            this.lessonExamHandler = new LessonExamHandler(loggedInUser);
 
-            CheckExamCompletion();
+            HandleExamLocks();
         }
 
-        private void CheckExamCompletion()
+        // Handling the exam locks on Startup
+        private void HandleExamLocks()
         {
-            foreach (var exam in loggedInUser.Exams)
+            for (int i = 1; i <= 15; i++)
             {
-                string examName = exam.ExamName;
+                string examName = "Exam" + i;
                 string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/ExamLock/{loggedInUser.Username}/{examName}.txt";
-
                 if (File.Exists(filePath))
                 {
-                    string[] lines = File.ReadAllLines(filePath);
-                    bool isCompleted = lines.Any(line => line.Split(',')[1].Trim() == "true");
+                    bool isComplete = lessonExamHandler.IsComplete(filePath);
 
                     string currentExamButton = examName;
-                    string nextExamButton = $"Exam{loggedInUser.Exams.IndexOf(exam) + 2}";
+                    string nextExamButton = "Exam" + (i + 1);
                     Button currentButton = (Button)FindName(currentExamButton);
                     Button nextButton = (Button)FindName(nextExamButton);
 
-                    if (currentExamButton == $"Exam{loggedInUser.Exams.Count}" && isCompleted)
+                    if (currentExamButton == "Exam15" && isComplete == true)
                     {
                         ExamDone.Visibility = Visibility.Visible;
                         ExamDone2.Visibility = Visibility.Visible;
@@ -46,7 +47,7 @@ namespace Team_Sharp.View
 
                     if (nextButton != null)
                     {
-                        if (isCompleted)
+                        if (isComplete)
                         {
                             currentButton.Style = (Style)FindResource("ExamAccentButton");
                             currentButton.IsEnabled = false;
@@ -57,8 +58,6 @@ namespace Team_Sharp.View
                             nextButton.IsEnabled = false;
                         }
                     }
-
-                    exam.IsCompleted = isCompleted;
                 }
             }
         }

@@ -12,15 +12,14 @@ namespace Team_Sharp.View.Lessons
     {
         private User loggedInUser;
         private string lessonName;
-        private FileReaderHandler fileReaderHandler;
+        private LessonExamHandler lessonExamHandler;
 
-        private List<Lecture> lectures = new List<Lecture>();
         public LessonPage(User loggedInUser, string lessonName)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
             this.lessonName = lessonName;
-            fileReaderHandler = new FileReaderHandler();
+            this.lessonExamHandler = new LessonExamHandler(loggedInUser);
             
             CheckLessonCompletion();
             LoadLesson();
@@ -33,26 +32,12 @@ namespace Team_Sharp.View.Lessons
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
             if (File.Exists(filePath))
             {
-                string[] lines = File.ReadAllLines(filePath);
-                bool isCompleted = false;
-
-                foreach (string line in lines)
-                {
-                    string[] parts = line.Split(',');
-                    string status = parts[1].Trim();
-
-                    if (status == "true")
-                    {
-                        isCompleted = true;
-                        break;
-
-                    }
-                }
+                bool isComplete = lessonExamHandler.IsComplete(filePath);
 
                 string currentLessonButton = "CompleteButton";
                 Button currentButton = (Button)FindName(currentLessonButton);
                    
-                if (isCompleted)
+                if (isComplete)
                 {
                     currentButton.Style = (Style)FindResource("ExamButton");
                     currentButton.Content = "Completed";

@@ -56,5 +56,29 @@ namespace Team_Sharp.Handlers
         }
 
 
+        public bool IsComplete(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(',');
+                    string status = parts[1].Trim();
+
+                    if (status == "true")
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
+
+
     }
 }

@@ -19,8 +19,6 @@ namespace Team_Sharp.Model
         private string _userProgressProficiency { get; set; }
 
         private Activity _activity { get; set; }
-        private List<LessonClass> _lessons { get; set; }
-        private List<ExamClass> _exams { get; set; }
 
 
         public User(string username, string password, string email, string name, string dob, string gender)
@@ -31,25 +29,15 @@ namespace Team_Sharp.Model
             this._name = name;
             this._dob = dob;
             this._gender = gender;
-
-            this._lessons = new List<LessonClass>();
-            this._exams = new List<ExamClass>();
         }
 
         public User(string username, string password)
         {
             this._username = username;
             this._password = password;
-
-            this._lessons = new List<LessonClass>();
-            this._exams = new List<ExamClass>();
         }
 
-        public User() 
-        {
-            this._lessons = new List<LessonClass>();
-            this._exams = new List<ExamClass>();
-        }
+        public User() { }
 
         public string Username
         {
@@ -123,17 +111,6 @@ namespace Team_Sharp.Model
             set { _activity = value; }
         }
 
-        public List<LessonClass> Lessons
-        {
-            get { return _lessons; }
-            set { _lessons = value; }
-        }
-
-        public List<ExamClass> Exams
-        {
-            get { return _exams; }
-            set { _exams = value; }
-        }
 
     }
 }
