@@ -89,9 +89,9 @@ namespace Team_Sharp.Handlers
                     }
                 }
 
-                user.Experience = int.Parse(exp);
-                user.UserProgressLevel = int.Parse(level);
-                user.UserProgressProficiency = proficiency;
+                user.Progress.UserExperience = int.Parse(exp);
+                user.Progress.UserProgressLevel = int.Parse(level);
+                user.Progress.UserProgressProficiency = proficiency;
             }
             catch (Exception ex)
             {

@@ -17,6 +17,12 @@ namespace Team_Sharp.Utility
             this.fileReaderHandler = new FileReaderHandler();
         }
 
+        public ExamManagement(User loggedInUser)
+        {
+            this.loggedInUser = loggedInUser;
+            this.fileReaderHandler = new FileReaderHandler();
+        }
+
         public int PointsToGive
         {
             get { return _pointsToGive; }
@@ -87,7 +93,12 @@ namespace Team_Sharp.Utility
         }
 
 
-
+        public void ResetProgress(User loggedInUser)
+        {
+            loggedInUser.ExamResult.CorrectAnswersCount = 0;
+            loggedInUser.ExamResult.InCorrectAnswersCount = 0;
+            loggedInUser.ExamResult.EarnedPoints = 0;
+        }
 
     }
 }

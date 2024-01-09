@@ -35,12 +35,12 @@ namespace Team_Sharp.View
             fileReaderHandler.ReadProgress(progress, loggedInUser);
 
 
-            progressBar.Value = loggedInUser.Experience / 10;
-            progressTextPer.Text = (loggedInUser.Experience / 10).ToString("0.00") + "%";
+            progressBar.Value = loggedInUser.Progress.UserExperience / 10;
+            progressTextPer.Text = (loggedInUser.Progress.UserExperience / 10).ToString("0.00") + "%";
 
-            progressLevel.Text = loggedInUser.UserProgressLevel.ToString();
-            progressProff.Text = loggedInUser.UserProgressProficiency.ToString();
-            totalExp.Text = loggedInUser.Experience.ToString();
+            progressLevel.Text = loggedInUser.Progress.UserProgressLevel.ToString();
+            progressProff.Text = loggedInUser.Progress.UserProgressProficiency.ToString();
+            totalExp.Text = loggedInUser.Progress.UserExperience.ToString();
         }
 
 

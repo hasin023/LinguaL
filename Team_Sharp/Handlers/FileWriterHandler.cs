@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using Team_Sharp.Model;
 using Team_Sharp.Utility;
@@ -23,6 +24,17 @@ namespace Team_Sharp.Handlers
                 writer.WriteLine("Email:" + user.Email);
                 writer.WriteLine("DOB:" + user.DateOfBirth);
                 writer.WriteLine("Gender:" + user.Gender);
+            }
+        }
+
+
+        public void WriteProgress(string fileName, User loggedInUser)
+        {
+            using (StreamWriter writer = File.AppendText(fileName))
+            {
+                writer.WriteLine($"EXP:{loggedInUser.Progress.UserExperience}");
+                writer.WriteLine($"Level:{loggedInUser.Progress.UserProgressLevel}");
+                writer.WriteLine($"Proficiency:{loggedInUser.Progress.UserProgressProficiency}");
             }
         }
 

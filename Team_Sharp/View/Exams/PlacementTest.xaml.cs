@@ -1,16 +1,21 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using Team_Sharp.Handlers;
 using Team_Sharp.Model;
+using Team_Sharp.Utility;
 
 namespace Team_Sharp.View.Exams
 {
     public partial class PlacementTest : Window
     {
+        private string QUESTION_NAME = "PlacementTest";
+        private readonly int PASSING_POINT = 60;
+
         private User loggedInUser;
-        private string questionName = "PlacementTest";
+        private FileWriterHandler fileWriterHandler;
+        private ExamManagement examManagement;
 
         public RadioButton _b1 { get; set; }
         public RadioButton _b2 { get; set; }
@@ -22,6 +27,8 @@ namespace Team_Sharp.View.Exams
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
+            this.fileWriterHandler = new FileWriterHandler();
+            this.examManagement = new ExamManagement(loggedInUser);
 
             _b1 = (RadioButton)FindName(b1);
             _b2 = (RadioButton)FindName(b2);
@@ -29,50 +36,58 @@ namespace Team_Sharp.View.Exams
             _b4 = (RadioButton)FindName(b4);
             _b5 = (RadioButton)FindName(b5);
 
-            LoadQuestions();
+            LoadQuestion();
 
         }
 
 
-        public List<Question> LoadQuestions()
+        // Window Buttons
+        public void submitClick(object sender, RoutedEventArgs e)
         {
-            string eQuestion = $@"../../../DataBase/Language/{loggedInUser.Language}/Question/{questionName}.txt";
+            CheckAllAnswers();
 
-            List<Question> questions = new List<Question>();
-            string[] lines = File.ReadAllLines(eQuestion);
-            Question currentQuestion = null;
-            for (int i = 0; i < lines.Length; i++)
+            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
+
+            if (loggedInUser.ExamResult.EarnedPoints >= PASSING_POINT)
             {
-                string line = lines[i].Trim();
-                if (line.StartsWith("Q."))
-                {
-                    // New question
-                    if (currentQuestion != null)
-                    {
-                        questions.Add(currentQuestion);
-                    }
-                    currentQuestion = new Question(line.Substring(2).Trim(), new List<Option>());
-                }
-                else if (line.StartsWith("A."))
-                {
-                    // Option for the current question
-                    if (currentQuestion != null && currentQuestion.Options.Count < 3)
-                    {
-                        currentQuestion.Options.Add(new Option(line.Substring(2).Trim()));
-                    }
-
-                }
-
+                SaveProgress(progress, 1, "A1");
             }
-            if (currentQuestion != null)
+            else
             {
-                questions.Add(currentQuestion);
+                SaveProgress(progress, 0, "NONE");
             }
+
+            new Menu(loggedInUser).Show();
+        }
+
+        public void showResetClick(object sender, RoutedEventArgs e)
+        {
+            if (SubmitButton.IsEnabled == true)
+            {
+                ShowButtonMethod();
+                ShowResetButton.Content = "Reset";
+            }
+            else
+            {
+                ResetButtonMethod();
+                ShowResetButton.Content = "Show";
+            }
+        }
+
+
+        // Load Exam Question
+        private void LoadQuestion()
+        {
+            LessonExamHandler lessonExamHandler = new LessonExamHandler(loggedInUser);
+
+            string eQuestion = $@"../../../DataBase/Language/{loggedInUser.Language}/Question/{QUESTION_NAME}.txt";
+            List<Question> questions = lessonExamHandler.ParseQuestionsFromFile(eQuestion);
 
             for (int i = 0; i < questions.Count; i++)
             {
                 TextBlock questionTextBlock = (TextBlock)FindName($"q{i + 1}Text");
                 questionTextBlock.Text = questions[i].Text;
+
                 for (int j = 0; j < questions[i].Options.Count; j++)
                 {
                     RadioButton optionRadioButton = (RadioButton)FindName($"q{i + 1}op{j + 1}");
@@ -80,114 +95,58 @@ namespace Team_Sharp.View.Exams
                     optionRadioButton.Tag = j;
                 }
             }
-
-            return questions;
         }
 
 
-        int correctAns = 0;
-        int wrongAns = 0;
-        int points = 0;
-        int pointToGive = 20;
-        public void checkAnswer()
+        // Save the user placementTest activity
+        private void SaveUserActivity()
         {
-            CheckQuestion(_b1, pointToGive);
-            CheckQuestion(_b2, pointToGive);
-            CheckQuestion(_b3, pointToGive);
-            CheckQuestion(_b4, pointToGive);
-            CheckQuestion(_b5, pointToGive);
+            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
+            fileWriterHandler.AppendTextToFile(filePath, textToAppend);
+        }
 
-            if (points >= 60)
+
+        // Exam Management Logic
+        private void CheckAllAnswers()
+        {
+            examManagement.ResetProgress(loggedInUser);
+
+            examManagement.CheckCorrectOption(_b1);
+            examManagement.CheckCorrectOption(_b2);
+            examManagement.CheckCorrectOption(_b3);
+            examManagement.CheckCorrectOption(_b4);
+            examManagement.CheckCorrectOption(_b5);
+
+            if (loggedInUser.ExamResult.EarnedPoints >= PASSING_POINT)
             {
-                MessageBox.Show($"Answered {correctAns} questions correctly\nScored {points} points\nStatus: PASSED", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Answered {loggedInUser.ExamResult.CorrectAnswersCount} questions correctly\nScored {loggedInUser.ExamResult.EarnedPoints} points\nStatus: PASSED", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
             else
             {
-                MessageBox.Show($"Answered {wrongAns} questions wrong\nScored {points} points\nStatus: FAILED", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Answered {loggedInUser.ExamResult.InCorrectAnswersCount} questions incorrectly\nScored {loggedInUser.ExamResult.EarnedPoints} points\nStatus: FAILED", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
             }
 
         }
 
-        private void CheckQuestion(RadioButton radioButton, int pointsToAdd)
+        private void SaveProgress(string fileName, int level, string proficiency)
         {
-            if (radioButton.IsChecked == true)
-            {
-                correctAns++;
-                points += pointsToAdd;
-            }
-            else
-            {
-                wrongAns++;
-            }
-        }
+            loggedInUser.Progress.UserExperience = loggedInUser.ExamResult.EarnedPoints;
+            loggedInUser.Progress.UserProgressLevel = level;
+            loggedInUser.Progress.UserProgressProficiency = proficiency;
 
-        private void saveUserActivity()
-        {
-            string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
+            fileWriterHandler.WriteProgress(fileName, loggedInUser);
 
-            using (StreamWriter writer = new StreamWriter(filePath, true))
-            {
-                writer.WriteLine(textToAppend);
-            }
-        }
-        private void SavePassedUserProgress()
-        {
-            loggedInUser.Experience = points;
-            loggedInUser.UserProgressLevel = 1;
-            loggedInUser.UserProgressProficiency = "A1";
+            loggedInUser.Activity.Name = QUESTION_NAME;
+            SaveUserActivity();
 
-            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
-
-            using (StreamWriter sw = File.AppendText(progress))
-            {
-                sw.WriteLine($"EXP:{loggedInUser.Experience}");
-                sw.WriteLine($"Level:{loggedInUser.UserProgressLevel}");
-                sw.WriteLine($"Proficiency:{loggedInUser.UserProgressProficiency}");
-            }
-
-            //Saving the Exam Activity
-            loggedInUser.Activity.Name = questionName;
-            saveUserActivity();
-
-            MessageBox.Show($"You have reached level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"You have reached level {loggedInUser.Progress.UserProgressLevel}\nYour proficiency level is {loggedInUser.Progress.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
-        private void SaveFailedUserProgress()
-        {
-            loggedInUser.Experience = points;
-            loggedInUser.UserProgressLevel = 0;
-            loggedInUser.UserProgressProficiency = "None";
-
-            string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
-
-            using (StreamWriter sw = File.AppendText(progress))
-            {
-                sw.WriteLine($"EXP:{loggedInUser.Experience}");
-                sw.WriteLine($"Level:{loggedInUser.UserProgressLevel}");
-                sw.WriteLine($"Proficiency:{loggedInUser.UserProgressProficiency}");
-            }
-
-            MessageBox.Show($"You are level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        public void submitClick(object sender, RoutedEventArgs e)
-        {
-            checkAnswer();
-            if (points >= 60)
-            {
-                SavePassedUserProgress();
-            }
-            else
-            {
-                SaveFailedUserProgress();
-            }
-
-            new Menu(loggedInUser).Show();
-        }
-
+        // Show/Reset Button Logic
         private void MarkCorrectOptions(RadioButton radioButton)
         {
             radioButton.Style = (Style)FindResource("MaterialDesignAccentRadioButton");
@@ -208,7 +167,7 @@ namespace Team_Sharp.View.Exams
             MarkCorrectOptions(_b4);
             MarkCorrectOptions(_b5);
 
-            points -= 5;
+            loggedInUser.ExamResult.EarnedPoints -= 5;
             SubmitButton.IsEnabled = false;
         }
 
@@ -223,18 +182,7 @@ namespace Team_Sharp.View.Exams
             SubmitButton.IsEnabled = true;
         }
 
-        public void showResetClick(object sender, RoutedEventArgs e)
-        {
-            if (SubmitButton.IsEnabled == true)
-            {
-                ShowButtonMethod();
-                ShowResetButton.Content = "Reset";
-            }
-            else
-            {
-                ResetButtonMethod();
-                ShowResetButton.Content = "Show";
-            }
-        }
+        
+
     }
 }

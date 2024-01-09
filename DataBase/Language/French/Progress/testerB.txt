@@ -1,0 +1,3 @@
+EXP:36
+Level:0
+Proficiency:NONE

@@ -1,0 +1,6 @@
+Username:testerB
+Password:140f826c7493ab8de6354726768dd5776f9ca3f3ec01908217f658ab4b150861
+Name:TesterB
+Email:test@yahoo.com
+DOB:23-07-2001
+Gender:Male

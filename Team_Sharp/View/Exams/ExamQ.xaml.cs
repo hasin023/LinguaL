@@ -99,7 +99,6 @@ namespace Team_Sharp.View.Exams
         }
 
 
-
         // Update the exam status & save the user activity
         private void UpdateExamStatus()
         {
@@ -116,7 +115,7 @@ namespace Team_Sharp.View.Exams
 
 
         // Exam Management Logic
-        public void CheckAllAnswers()
+        private void CheckAllAnswers()
         {
             examManagement.CheckCorrectOption(_b1);
             examManagement.CheckCorrectOption(_b2);
