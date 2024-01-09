@@ -89,13 +89,13 @@ namespace Team_Sharp.View.Lessons
         private void SaveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.GetActivityName()}";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
             fileWriterHandler.AppendTextToFile(filePath, textToAppend);
         }
 
         private void SaveLessonComplete()
         {
-            loggedInUser.SetActivityName(lessonName);
+            loggedInUser.Activity.Name = lessonName;
             SaveUserActivity();
         }
 

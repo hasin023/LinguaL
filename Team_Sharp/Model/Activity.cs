@@ -13,6 +13,8 @@ namespace Team_Sharp.Model
             this._name = name;
         }
 
+        public Activity() { }
+
         public DateTime Date
         {
             get { return _date; }
@@ -24,5 +26,8 @@ namespace Team_Sharp.Model
             get { return _name; }
             set { _name = value; }
         }
+
+    
+
     }
 }

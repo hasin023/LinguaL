@@ -29,7 +29,7 @@ namespace Team_Sharp.Utility
             if (radioButton.IsChecked == true)
             {
                 loggedInUser.ExamResult.CorrectAnswersCount++;
-                loggedInUser.ExamResult.EarnedPoints += _pointsToGive;
+                loggedInUser.ExamResult.EarnedPoints += _pointsToGive;                
             }
             else
             {
@@ -42,47 +42,47 @@ namespace Team_Sharp.Utility
         {
             fileReaderHandler.ReadProgress(filePath, loggedInUser);
 
-            int prevLevel = loggedInUser.UserProgressLevel;
-            string prevProficiency = loggedInUser.UserProgressProficiency;
-            int prevExp = loggedInUser.Experience;
+            int prevLevel = loggedInUser.Progress.UserProgressLevel;
+            string prevProficiency = loggedInUser.Progress.UserProgressProficiency;
+            int prevExp = loggedInUser.Progress.UserExperience;
 
             // A1, A2, B1, B2, C1, and C2
-            loggedInUser.Experience += prevExp + _pointsToGive;
+            loggedInUser.Progress.UserExperience += prevExp + _pointsToGive;
 
-            if (loggedInUser.Experience >= 1000)
+            if (loggedInUser.Progress.UserExperience >= 1000)
             {
-                loggedInUser.UserProgressLevel = prevLevel + 1;
-                loggedInUser.UserProgressProficiency = "C2";
+                loggedInUser.Progress.UserProgressLevel = prevLevel + 1;
+                loggedInUser.Progress.UserProgressProficiency = "C2";
             }
-            else if (loggedInUser.Experience >= 800)
+            else if (loggedInUser.Progress.UserExperience >= 800)
             {
-                loggedInUser.UserProgressLevel = prevLevel + 1;
-                loggedInUser.UserProgressProficiency = "C1";
+                loggedInUser.Progress.UserProgressLevel = prevLevel + 1;
+                loggedInUser.Progress.UserProgressProficiency = "C1";
             }
-            else if (loggedInUser.Experience >= 600)
+            else if (loggedInUser.Progress.UserExperience >= 600)
             {
-                loggedInUser.UserProgressLevel = prevLevel + 1;
-                loggedInUser.UserProgressProficiency = "B2";
+                loggedInUser.Progress.UserProgressLevel = prevLevel + 1;
+                loggedInUser.Progress.UserProgressProficiency = "B2";
             }
-            else if (loggedInUser.Experience >= 400)
+            else if (loggedInUser.Progress.UserExperience >= 400)
             {
-                loggedInUser.UserProgressLevel = prevLevel + 1;
-                loggedInUser.UserProgressProficiency = "B1";
+                loggedInUser.Progress.UserProgressLevel = prevLevel + 1;
+                loggedInUser.Progress.UserProgressProficiency = "B1";
             }
-            else if (loggedInUser.Experience >= 200)
+            else if (loggedInUser.Progress.UserExperience >= 200)
             {
-                loggedInUser.UserProgressLevel = prevLevel + 1;
-                loggedInUser.UserProgressProficiency = "A2";
+                loggedInUser.Progress.UserProgressLevel = prevLevel + 1;
+                loggedInUser.Progress.UserProgressProficiency = "A2";
             }
-            else if (loggedInUser.Experience >= 100)
+            else if (loggedInUser.Progress.UserExperience >= 100)
             {
-                loggedInUser.UserProgressLevel = prevLevel + 1;
-                loggedInUser.UserProgressProficiency = "A1";
+                loggedInUser.Progress.UserProgressLevel = prevLevel + 1;
+                loggedInUser.Progress.UserProgressProficiency = "A1";
             }
             else
             {
-                loggedInUser.UserProgressLevel = prevLevel;
-                loggedInUser.UserProgressProficiency = prevProficiency;
+                loggedInUser.Progress.UserProgressLevel = prevLevel;
+                loggedInUser.Progress.UserProgressProficiency = prevProficiency;
             }
         }
 

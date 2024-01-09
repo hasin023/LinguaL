@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
 using Team_Sharp.Handlers;
@@ -112,7 +110,7 @@ namespace Team_Sharp.View.Exams
         private void SaveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
-            string textToAppend = $"{DateTime.Now},{loggedInUser.GetActivityName()}";
+            string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
             fileWriterHandler.AppendTextToFile(filePath, textToAppend);
         }
 
@@ -133,7 +131,7 @@ namespace Team_Sharp.View.Exams
             }
             else
             {
-                MessageBox.Show($"Answered {loggedInUser.ExamResult.InCorrectAnswersCount} questions wrong\nScored {loggedInUser.ExamResult.EarnedPoints} points\nStatus: FAILED", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Answered {loggedInUser.ExamResult.InCorrectAnswersCount} questions incorrectly\nScored {loggedInUser.ExamResult.EarnedPoints} points\nStatus: FAILED", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
 
@@ -144,20 +142,20 @@ namespace Team_Sharp.View.Exams
             string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
             fileReaderHandler.ReadProgress(progress, loggedInUser);
 
-            int prevLevel = loggedInUser.UserProgressLevel;
-            string prevProficiency = loggedInUser.UserProgressProficiency;
-            int prevExp = loggedInUser.Experience;
+            int prevLevel = loggedInUser.Progress.UserProgressLevel;
+            string prevProficiency = loggedInUser.Progress.UserProgressProficiency;
+            int prevExp = loggedInUser.Progress.UserExperience;
 
             examManagement.CalculatePassingProgress(progress);
 
-            fileWriterHandler.ReplaceLineInFile(progress, $"EXP:{prevExp}", $"EXP:{loggedInUser.Experience}");
-            fileWriterHandler.ReplaceLineInFile(progress, $"Level:{prevLevel}", $"Level:{loggedInUser.UserProgressLevel}");
-            fileWriterHandler.ReplaceLineInFile(progress, $"Proficiency:{prevProficiency}", $"Proficiency:{loggedInUser.UserProgressProficiency}");
+            fileWriterHandler.ReplaceLineInFile(progress, $"EXP:{prevExp}", $"EXP:{loggedInUser.Progress.UserExperience}");
+            fileWriterHandler.ReplaceLineInFile(progress, $"Level:{prevLevel}", $"Level:{loggedInUser.Progress.UserProgressLevel}");
+            fileWriterHandler.ReplaceLineInFile(progress, $"Proficiency:{prevProficiency}", $"Proficiency:{loggedInUser.Progress.UserProgressProficiency}");
 
-            loggedInUser.SetActivityName(questionNo);
+            loggedInUser.Activity.Name = questionNo;
             SaveUserActivity();
 
-            MessageBox.Show($"You have reached level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"You have reached level {loggedInUser.Progress.UserProgressLevel}\nYour proficiency level is {loggedInUser.Progress.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void SaveFailingProgress()
@@ -165,7 +163,7 @@ namespace Team_Sharp.View.Exams
             string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
             fileReaderHandler.ReadProgress(progress, loggedInUser);
 
-            MessageBox.Show($"You are level {loggedInUser.UserProgressLevel}\nYour proficiency level is {loggedInUser.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"You are level {loggedInUser.Progress.UserProgressLevel}\nYour proficiency level is {loggedInUser.Progress.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 
