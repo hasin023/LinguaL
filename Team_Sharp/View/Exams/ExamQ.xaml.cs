@@ -117,6 +117,8 @@ namespace Team_Sharp.View.Exams
         // Exam Management Logic
         private void CheckAllAnswers()
         {
+            examManagement.ResetProgress(loggedInUser);
+
             examManagement.CheckCorrectOption(_b1);
             examManagement.CheckCorrectOption(_b2);
             examManagement.CheckCorrectOption(_b3);

@@ -43,7 +43,7 @@
                     </Border>
 
                     <!--Menu Title-->
-                    <TextBlock Text="Language Learning App" Foreground="White" FontSize="17" FontWeight="SemiBold"
+                    <TextBlock Text="Project LinguaL" Foreground="White" FontSize="17" FontWeight="SemiBold"
                                DockPanel.Dock="Top" TextAlignment="Center" Margin="0 25 0 10"/>
                     <TextBlock x:Name="userBlock" Text="Username" Foreground="#F9E4E4" FontSize="13" FontWeight="SemiBold"
                                DockPanel.Dock="Top" TextAlignment="Center"/>
