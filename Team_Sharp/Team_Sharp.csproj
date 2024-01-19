@@ -87,6 +87,11 @@
     </Compile>
     <Compile Include="Model\ExamClass.cs" />
     <Compile Include="Model\ExamResult.cs" />
+    <Compile Include="Model\IActivity.cs" />
+    <Compile Include="Model\IExam.cs" />
+    <Compile Include="Model\ILesson.cs" />
+    <Compile Include="Model\ISaveable.cs" />
+    <Compile Include="Model\IStatus.cs" />
     <Compile Include="Model\LessonClass.cs" />
     <Compile Include="Model\Progress.cs" />
     <Compile Include="Registration.xaml.cs">
