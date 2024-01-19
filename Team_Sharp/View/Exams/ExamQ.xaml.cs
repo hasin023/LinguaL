@@ -8,7 +8,7 @@ using Team_Sharp.Utility;
 
 namespace Team_Sharp.View.Exams
 {
-    public partial class ExamQ : Window
+    public partial class ExamQ : Window, IExam, IActivity, IStatus, ISaveable
     {
         private readonly int POINT_TO_ADD = 12;
         private readonly int PASSING_POINT = 36;
@@ -53,7 +53,7 @@ namespace Team_Sharp.View.Exams
             if (loggedInUser.ExamResult.EarnedPoints >= PASSING_POINT)
             {
                 SavePassingProgress();
-                UpdateExamStatus();
+                UpdateStatus();
             }
             else
             {
@@ -77,7 +77,7 @@ namespace Team_Sharp.View.Exams
 
 
         // Load Exam Questions
-        private void LoadQuestions()
+        public void LoadQuestions()
         {
             LessonExamHandler lessonExamHandler = new LessonExamHandler(loggedInUser);
 
@@ -100,13 +100,13 @@ namespace Team_Sharp.View.Exams
 
 
         // Update the exam status & save the user activity
-        private void UpdateExamStatus()
+        public void UpdateStatus()
         {
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/ExamLock/{loggedInUser.Username}/{questionNo}.txt";
             fileWriterHandler.ReplaceLineInFile(filePath, $"{loggedInUser.Username},false", $"{loggedInUser.Username},true");
         }
 
-        private void SaveUserActivity()
+        public void SaveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
             string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
@@ -115,7 +115,7 @@ namespace Team_Sharp.View.Exams
 
 
         // Exam Management Logic
-        private void CheckAllAnswers()
+        public void CheckAllAnswers()
         {
             examManagement.ResetProgress(loggedInUser);
 
@@ -138,7 +138,7 @@ namespace Team_Sharp.View.Exams
 
         }
 
-        private void SavePassingProgress()
+        public void SavePassingProgress()
         {
             string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
             fileReaderHandler.ReadProgress(progress, loggedInUser);
@@ -159,7 +159,7 @@ namespace Team_Sharp.View.Exams
             MessageBox.Show($"You have reached level {loggedInUser.Progress.UserProgressLevel}\nYour proficiency level is {loggedInUser.Progress.UserProgressProficiency}", "Result", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void SaveFailingProgress()
+        public void SaveFailingProgress()
         {
             string progress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
             fileReaderHandler.ReadProgress(progress, loggedInUser);

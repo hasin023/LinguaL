@@ -8,7 +8,7 @@ using Team_Sharp.Utility;
 
 namespace Team_Sharp.View.Exams
 {
-    public partial class PlacementTest : Window
+    public partial class PlacementTest : Window, IExam, IActivity
     {
         private string QUESTION_NAME = "PlacementTest";
         private readonly int PASSING_POINT = 60;
@@ -36,7 +36,7 @@ namespace Team_Sharp.View.Exams
             _b4 = (RadioButton)FindName(b4);
             _b5 = (RadioButton)FindName(b5);
 
-            LoadQuestion();
+            LoadQuestions();
 
         }
 
@@ -76,7 +76,7 @@ namespace Team_Sharp.View.Exams
 
 
         // Load Exam Question
-        private void LoadQuestion()
+        public void LoadQuestions()
         {
             LessonExamHandler lessonExamHandler = new LessonExamHandler(loggedInUser);
 
@@ -99,7 +99,7 @@ namespace Team_Sharp.View.Exams
 
 
         // Save the user placementTest activity
-        private void SaveUserActivity()
+        public void SaveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
             string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
@@ -108,7 +108,7 @@ namespace Team_Sharp.View.Exams
 
 
         // Exam Management Logic
-        private void CheckAllAnswers()
+        public void CheckAllAnswers()
         {
             examManagement.ResetProgress(loggedInUser);
 
@@ -181,8 +181,6 @@ namespace Team_Sharp.View.Exams
 
             SubmitButton.IsEnabled = true;
         }
-
-        
 
     }
 }

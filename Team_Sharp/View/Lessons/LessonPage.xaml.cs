@@ -8,7 +8,7 @@ using Team_Sharp.Handlers;
 
 namespace Team_Sharp.View.Lessons
 {
-    public partial class LessonPage : Window
+    public partial class LessonPage : Window, ILesson, IActivity, IStatus
     {
         private User loggedInUser;
         private string lessonName;
@@ -31,7 +31,7 @@ namespace Team_Sharp.View.Lessons
         public void completeClick(object sender, RoutedEventArgs e)
         {
             SaveLessonComplete();
-            UpdateLessonStatus();
+            UpdateStatus();
             MessageBox.Show("The next lesson is now Available!!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             this.Close();
         }
@@ -64,7 +64,7 @@ namespace Team_Sharp.View.Lessons
 
 
         // Load the lesson from the list of lectures
-        private void LoadLesson()
+        public void LoadLesson()
         {
             List<Lecture> lectures = lessonExamHandler.ReadLessonFromFile(loggedInUser, lessonName);
 
@@ -80,26 +80,24 @@ namespace Team_Sharp.View.Lessons
 
 
         // Update the lesson status & save the user activity
-        private void UpdateLessonStatus()
+        public void UpdateStatus()
         {
             string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/LessonLock/{loggedInUser.Username}/{lessonName}.txt";
             fileWriterHandler.ReplaceLineInFile(filePath, $"{loggedInUser.Username},false", $"{loggedInUser.Username},true");
         }
 
-        private void SaveUserActivity()
+        public void SaveUserActivity()
         {
             string filePath = $@"../../../DataBase/DashBoardActivity/{loggedInUser.Language}/{loggedInUser.Username}.txt";
             string textToAppend = $"{DateTime.Now},{loggedInUser.Activity.Name}";
             fileWriterHandler.AppendTextToFile(filePath, textToAppend);
         }
 
-        private void SaveLessonComplete()
+        public void SaveLessonComplete()
         {
             loggedInUser.Activity.Name = lessonName;
             SaveUserActivity();
         }
-
-
 
     }
 }

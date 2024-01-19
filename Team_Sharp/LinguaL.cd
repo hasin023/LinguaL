@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Team_Sharp.App" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.LanguageSelection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAACAAAAAAAAAAAQAAAQAAAEAAAAAAAA=</HashCode>
+      <FileName>LanguageSelection.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.Login" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAACAAAEAAAAAQAAABAgAAAAAQA=</HashCode>
+      <FileName>Login.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.Menu" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAEAAACAAABAEAAAAAAAAEAAABQAAAEAABAIAAA=</HashCode>
+      <FileName>Menu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.Registration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAECAAAAAAAFGIhAASABAAAAACIAAAACQAAA=</HashCode>
+      <FileName>Registration.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.Handlers.FileReaderHandler" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAgAAAAAAABAAAAAQAAAAAAAAAAgAIAAAAIEAAAA=</HashCode>
+      <FileName>Handlers\FileReaderHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Handlers.FileWriterHandler" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAAAAAAAAAIQAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Handlers\FileWriterHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Handlers.LessonExamHandler" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAABAAUAAAAAAAAAAAAABAAAAAEQAAQAAAA=</HashCode>
+      <FileName>Handlers\LessonExamHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Model.Activity" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAABAAAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Model.ExamClass" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAECAAAAAABQAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ExamClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Model.ExamResult" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAEAAAAAAAAAABAAAAAAEAgIAA=</HashCode>
+      <FileName>Model\ExamResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Model.LessonClass" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAACAAAAAABAAAAAAAAAAgAA=</HashCode>
+      <FileName>Model\LessonClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Model.Progress" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAACAAAAAAAAAAhAAAQAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Model\Progress.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Model.User" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAcAAACCAAAACAAQAAIAQQIBAQAAACAAIAAECAAAE=</HashCode>
+      <FileName>Model\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Properties.Resources" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Properties.Settings" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Utility.ExamManagement" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAACAAAAAAAAAAAAAAAAAgAAAIQAAQEAAAAAAAA=</HashCode>
+      <FileName>Utility\ExamManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Utility.GenderUtil" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABAAAAAAAAAAAAAAAAABAAAAAAQAAAAAAAAg=</HashCode>
+      <FileName>Utility\GenderUtil.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Utility.PasswordHasher" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\PasswordHasher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.Utility.UserAuthentication" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\UserAuthentication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.View.Dashboard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAABAAAAAAAAAAQAAAEAAAAAAAA=</HashCode>
+      <FileName>View\Dashboard.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.View.Exam" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAACAAAAAAAQAgAAAAAAAQAABAiEAFCAAAAAAA=</HashCode>
+      <FileName>View\Exam.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.View.Lesson" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgBAAAAAgAAAAQAQIgAgEAAAQSAICBAAAFAAAAIAAA=</HashCode>
+      <FileName>View\Lesson.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.View.Exams.ExamQ" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoAAAAAAIAAKABEBAAAAIAAAAICAAAUAgBlAAAACAgA=</HashCode>
+      <FileName>View\Exams\ExamQ.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.View.Exams.Option" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAIACAAAAAA=</HashCode>
+      <FileName>View\Exams\Option.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.View.Exams.PlacementTest" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAQKABEBAAAAIAAAAICAAAEAABEAABAAAgA=</HashCode>
+      <FileName>View\Exams\PlacementTest.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Team_Sharp.View.Exams.Question" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAIAAAACABAAAA=</HashCode>
+      <FileName>View\Exams\Question.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.View.Lessons.Lecture" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAQAAAAAAAAAABEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Lessons\Lecture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Team_Sharp.View.Lessons.LessonPage" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIEAAAAIAAAAIEAAAAACgAAAAQAAAAAAAEAAAAAAgA=</HashCode>
+      <FileName>View\Lessons\LessonPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="11.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
