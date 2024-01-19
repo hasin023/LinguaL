@@ -25,14 +25,14 @@ namespace Team_Sharp.View.Exams
         public RadioButton _b4 { get; set; }
         public RadioButton _b5 { get; set; }
 
-        public ExamQ(User loggedInUser, string questionNo, string b1, string b2, string b3, string b4, string b5)
+        public ExamQ(User loggedInUser, FileReaderHandler fileReaderHandler, FileWriterHandler fileWriterHandler, string questionNo, string b1, string b2, string b3, string b4, string b5)
         {
             InitializeComponent();
 
             this.loggedInUser = loggedInUser;
             this.questionNo = questionNo;
-            this.fileWriterHandler = new FileWriterHandler();
-            this.fileReaderHandler = new FileReaderHandler();
+            this.fileWriterHandler = fileWriterHandler;
+            this.fileReaderHandler = fileReaderHandler;
             this.examManagement = new ExamManagement(loggedInUser, POINT_TO_ADD);
 
             _b1 = (RadioButton)FindName(b1);

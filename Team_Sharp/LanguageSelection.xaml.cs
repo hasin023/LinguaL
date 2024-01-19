@@ -12,12 +12,16 @@ namespace Team_Sharp
     {
         private readonly User loggedInUser;
         private readonly LessonExamHandler lessonExamHandler;
+        private FileReaderHandler fileReaderHandler;
+        private FileWriterHandler fileWriterHandler;
 
-        public LanguageSelection(User loggedInUser)
+        public LanguageSelection(User loggedInUser, FileReaderHandler fileReaderHandler, FileWriterHandler fileWriterHandler)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
             this.lessonExamHandler = new LessonExamHandler(loggedInUser);
+            this.fileReaderHandler = fileReaderHandler;
+            this.fileWriterHandler = fileWriterHandler;
         }
 
         private void startClick(object sender, RoutedEventArgs e)
@@ -29,14 +33,14 @@ namespace Team_Sharp
             string userProgress = $@"../../../DataBase/Language/{loggedInUser.Language}/Progress/{loggedInUser.Username}.txt";
             if (File.Exists(userProgress))
             {
-                new Menu(loggedInUser).Show();
+                new Menu(loggedInUser, fileReaderHandler, fileWriterHandler, lessonExamHandler).Show();
             }
             else
             {
                 lessonExamHandler.MakeLessonFiles();
                 lessonExamHandler.MakeExamFiles();
 
-                new PlacementTest(loggedInUser, "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").Show();
+                new PlacementTest(loggedInUser, fileWriterHandler, "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").Show();
             }
         }
 

@@ -15,13 +15,13 @@ namespace Team_Sharp.View.Lessons
         private LessonExamHandler lessonExamHandler;
         private FileWriterHandler fileWriterHandler;
 
-        public LessonPage(User loggedInUser, string lessonName)
+        public LessonPage(User loggedInUser, string lessonName, LessonExamHandler lessonExamHandler, FileWriterHandler fileWriterHandler)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
             this.lessonName = lessonName;
-            this.lessonExamHandler = new LessonExamHandler(loggedInUser);
-            this.fileWriterHandler = new FileWriterHandler();
+            this.lessonExamHandler = lessonExamHandler;
+            this.fileWriterHandler = fileWriterHandler;
             
             CheckLessonCompletion();
             LoadLesson();

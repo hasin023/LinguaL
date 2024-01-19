@@ -11,12 +11,14 @@ namespace Team_Sharp.View
     {
         private readonly User loggedInUser;
         private LessonExamHandler lessonExamHandler;
+        private FileWriterHandler fileWriterHandler;
 
-        public Lesson(User loggedInUser)
+        public Lesson(User loggedInUser, LessonExamHandler lessonExamHandler, FileWriterHandler fileWriterHandler)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
-            this.lessonExamHandler = new LessonExamHandler(loggedInUser);
+            this.lessonExamHandler = lessonExamHandler;
+            this.fileWriterHandler = fileWriterHandler;
 
             HandleLessonLocks();
         }
@@ -65,7 +67,7 @@ namespace Team_Sharp.View
         // Lesson Buttons
         private void LessonClick(string lessonName)
         {
-            new LessonPage(loggedInUser, lessonName).ShowDialog();
+            new LessonPage(loggedInUser, lessonName, lessonExamHandler, fileWriterHandler).ShowDialog();
         }
 
         public void lesson1Click(object sender, RoutedEventArgs e) => LessonClick("Lesson1");

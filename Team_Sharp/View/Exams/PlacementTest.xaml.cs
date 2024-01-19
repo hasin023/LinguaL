@@ -23,11 +23,11 @@ namespace Team_Sharp.View.Exams
         public RadioButton _b4 { get; set; }
         public RadioButton _b5 { get; set; }
 
-        public PlacementTest(User loggedInUser, string b1, string b2, string b3, string b4, string b5)
+        public PlacementTest(User loggedInUser, FileWriterHandler fileWriterHandler, string b1, string b2, string b3, string b4, string b5)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
-            this.fileWriterHandler = new FileWriterHandler();
+            this.fileWriterHandler = fileWriterHandler;
             this.examManagement = new ExamManagement(loggedInUser);
 
             _b1 = (RadioButton)FindName(b1);

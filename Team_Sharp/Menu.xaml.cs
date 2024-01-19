@@ -10,12 +10,16 @@ namespace Team_Sharp
     {
         private User loggedInUser;
         private FileReaderHandler fileReaderHandler;
+        private FileWriterHandler fileWriterHandler;
+        private LessonExamHandler lessonExamHandler;
 
-        public Menu(User loggedInUser)
+        public Menu(User loggedInUser, FileReaderHandler fileReaderHandler, FileWriterHandler fileWriterHandler, LessonExamHandler lessonExamHandler)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
-            fileReaderHandler = new FileReaderHandler();
+            this.fileReaderHandler = fileReaderHandler;
+            this.fileWriterHandler = fileWriterHandler;
+            this.lessonExamHandler = lessonExamHandler;
 
             HandleOnStartUP();
         }
@@ -48,12 +52,12 @@ namespace Team_Sharp
 
         private void lessonClick(object sender, RoutedEventArgs e)
         {
-            menuCon.Content = new Lesson(loggedInUser);
+            menuCon.Content = new Lesson(loggedInUser, lessonExamHandler, fileWriterHandler);
         }
 
         private void examClick(object sender, RoutedEventArgs e)
         {
-            menuCon.Content = new Exam(loggedInUser);
+            menuCon.Content = new Exam(loggedInUser, lessonExamHandler);
         }
 
 

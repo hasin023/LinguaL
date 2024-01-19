@@ -10,6 +10,8 @@ namespace Team_Sharp
     public partial class Login : Window
     {
         private UserAuthentication userAuthentication = new UserAuthentication();
+        private FileReaderHandler fileReaderHandler;
+        private FileWriterHandler fileWriterHandler;
 
         public Login()
         {
@@ -19,6 +21,9 @@ namespace Team_Sharp
             {
                 txtLUsername.Text = Properties.Settings.Default.Username;
             }
+
+            this.fileReaderHandler = new FileReaderHandler();
+            this.fileWriterHandler = new FileWriterHandler();
         }
 
 
@@ -41,7 +46,7 @@ namespace Team_Sharp
             if (authenticatedUser != null)
             {
                 this.Hide();
-                new LanguageSelection(authenticatedUser).Show();
+                new LanguageSelection(authenticatedUser, fileReaderHandler, fileWriterHandler).Show();
             }
 
         }

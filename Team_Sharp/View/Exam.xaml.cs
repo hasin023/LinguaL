@@ -11,12 +11,16 @@ namespace Team_Sharp.View
     {
         private readonly User loggedInUser;
         private LessonExamHandler lessonExamHandler;
+        private FileReaderHandler fileReaderHandler;
+        private FileWriterHandler fileWriterHandler;
 
-        public Exam(User loggedInUser)
+        public Exam(User loggedInUser, LessonExamHandler lessonExamHandler, FileReaderHandler fileReaderHandler, FileWriterHandler fileWriterHandler)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
-            this.lessonExamHandler = new LessonExamHandler(loggedInUser);
+            this.lessonExamHandler = lessonExamHandler;
+            this.fileReaderHandler = fileReaderHandler;
+            this.fileWriterHandler = fileWriterHandler;
 
             HandleExamLocks();
         }
@@ -63,79 +67,85 @@ namespace Team_Sharp.View
         }
 
 
+        public void OpenExamDialog(object sender, RoutedEventArgs e, string examName, string op1, string op2, string op3, string op4, string op5)
+        {
+            new ExamQ(loggedInUser, fileReaderHandler, fileWriterHandler, examName, op1, op2, op3, op4, op5).ShowDialog();
+        }
+
         public void exam1Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam1", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam1", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam2Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam2", "q1op2", "q2op2", "q3op2", "q4op2", "q5op2").ShowDialog();
+            OpenExamDialog(sender, e, "Exam2", "q1op2", "q2op2", "q3op2", "q4op2", "q5op2");
         }
 
         public void exam3Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam3", "q1op3", "q2op3", "q3op3", "q4op3", "q5op3").ShowDialog();
+            OpenExamDialog(sender, e, "Exam3", "q1op3", "q2op3", "q3op3", "q4op3", "q5op3");
         }
 
         public void exam4Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam4", "q1op1", "q2op2", "q3op3", "q4op3", "q5op2").ShowDialog();
+            OpenExamDialog(sender, e, "Exam4", "q1op1", "q2op2", "q3op3", "q4op3", "q5op2");
         }
 
         public void exam5Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam5", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam5", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam6Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam6", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam6", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam7Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam7", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam7", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam8Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam8", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam8", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam9Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam9", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam9", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam10Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam10", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam10", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam11Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam11", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam11", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam12Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam12", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam12", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam13Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam13", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam13", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam14Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam14", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam14", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
 
         public void exam15Click(object sender, RoutedEventArgs e)
         {
-            new ExamQ(loggedInUser, "Exam15", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").ShowDialog();
+            OpenExamDialog(sender, e, "Exam15", "q1op1", "q2op1", "q3op1", "q4op1", "q5op1");
         }
+
     }
 }
