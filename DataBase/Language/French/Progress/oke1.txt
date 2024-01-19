@@ -1,0 +1,3 @@
+EXP:12
+Level:0
+Proficiency:NONE

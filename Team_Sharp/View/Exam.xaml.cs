@@ -32,7 +32,7 @@ namespace Team_Sharp.View
             {
                 string examName = "Exam" + i;
                 string filePath = $@"../../../DataBase/Language/{loggedInUser.Language}/ExamLock/{loggedInUser.Username}/{examName}.txt";
-                if (File.Exists(filePath))
+                if (fileReaderHandler.UserFileExists(filePath))
                 {
                     bool isComplete = lessonExamHandler.IsComplete(filePath);
 

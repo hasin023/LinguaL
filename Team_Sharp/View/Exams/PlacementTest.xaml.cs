@@ -15,7 +15,10 @@ namespace Team_Sharp.View.Exams
 
         private User loggedInUser;
         private FileWriterHandler fileWriterHandler;
+        private FileReaderHandler fileReaderHandler;
+        private LessonExamHandler lessonExamHandler;
         private ExamManagement examManagement;
+
 
         public RadioButton _b1 { get; set; }
         public RadioButton _b2 { get; set; }
@@ -23,11 +26,13 @@ namespace Team_Sharp.View.Exams
         public RadioButton _b4 { get; set; }
         public RadioButton _b5 { get; set; }
 
-        public PlacementTest(User loggedInUser, FileWriterHandler fileWriterHandler, string b1, string b2, string b3, string b4, string b5)
+        public PlacementTest(User loggedInUser, FileWriterHandler fileWriterHandler, FileReaderHandler fileReaderHandler, LessonExamHandler lessonExamHandler, string b1, string b2, string b3, string b4, string b5)
         {
             InitializeComponent();
             this.loggedInUser = loggedInUser;
             this.fileWriterHandler = fileWriterHandler;
+            this.fileReaderHandler = fileReaderHandler;
+            this.lessonExamHandler = lessonExamHandler;
             this.examManagement = new ExamManagement(loggedInUser);
 
             _b1 = (RadioButton)FindName(b1);
@@ -57,7 +62,7 @@ namespace Team_Sharp.View.Exams
                 SaveProgress(progress, 0, "NONE");
             }
 
-            new Menu(loggedInUser).Show();
+            new Menu(loggedInUser, fileReaderHandler, fileWriterHandler, lessonExamHandler).Show();
         }
 
         public void showResetClick(object sender, RoutedEventArgs e)

@@ -40,7 +40,7 @@ namespace Team_Sharp
                 lessonExamHandler.MakeLessonFiles();
                 lessonExamHandler.MakeExamFiles();
 
-                new PlacementTest(loggedInUser, fileWriterHandler, "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").Show();
+                new PlacementTest(loggedInUser, fileWriterHandler, fileReaderHandler, lessonExamHandler, "q1op1", "q2op1", "q3op1", "q4op1", "q5op1").Show();
             }
         }
 

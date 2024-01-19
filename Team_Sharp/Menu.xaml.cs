@@ -57,7 +57,7 @@ namespace Team_Sharp
 
         private void examClick(object sender, RoutedEventArgs e)
         {
-            menuCon.Content = new Exam(loggedInUser, lessonExamHandler);
+            menuCon.Content = new Exam(loggedInUser, lessonExamHandler, fileReaderHandler, fileWriterHandler);
         }
 
 
